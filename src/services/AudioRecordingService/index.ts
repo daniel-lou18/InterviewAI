@@ -2,8 +2,12 @@ class AudioRecorder {
   private chunks: Blob[] = [];
   private recorder: MediaRecorder;
 
-  constructor(private stream: MediaStream, recorder?: MediaRecorder) {
-    this.recorder = recorder || new MediaRecorder(stream);
+  constructor(streamOrRecorder: MediaStream | MediaRecorder) {
+    if (streamOrRecorder instanceof MediaStream) {
+      this.recorder = new MediaRecorder(streamOrRecorder);
+    } else {
+      this.recorder = streamOrRecorder;
+    }
     this.initRecorder();
   }
 
