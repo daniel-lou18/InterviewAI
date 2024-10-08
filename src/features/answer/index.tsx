@@ -9,33 +9,38 @@ import {
 import { motion } from "framer-motion";
 import useRecord from "@/hooks/useRecord";
 
-export default function Answer() {
-  const {
-    isRecording,
-    handleStartRecording,
-    handleStopRecording,
-    handlePlayAudio,
-    audioUrl,
-  } = useRecord();
+type AnswerProps = Omit<
+  ReturnType<typeof useRecord>,
+  "text" | "error" | "isLoading"
+>;
 
+export default function Answer({
+  isRecording,
+  handleStopRecording,
+  handleStartRecording,
+  audioUrl,
+  handlePlayAudio,
+}: AnswerProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <Card className="mb-6 shadow-lg">
+      <Card className="mb-6 shadow-lg overflow-hidden">
         <CardHeader className="bg-blue-700 text-white">
-          <h2 className="text-xl font-semibold">Your Answer</h2>
+          <h2 className="text-lg font-semibold">Votre réponse</h2>
         </CardHeader>
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-4">
             <p
-              className={`text-lg ${
+              className={`text-sm ${
                 isRecording ? "text-red-600 font-semibold" : "text-gray-600"
               }`}
             >
-              {isRecording ? "Recording..." : "Ready to record"}
+              {isRecording
+                ? "Enregistrement en cours..."
+                : "Prêt à enregistrer"}
             </p>
             <Button
               onClick={isRecording ? handleStopRecording : handleStartRecording}
@@ -50,7 +55,7 @@ export default function Answer() {
               ) : (
                 <Play className="mr-2 h-5 w-5" />
               )}
-              {isRecording ? "Stop" : "Start"}
+              {isRecording ? "Arrêter" : "Démarrer"}
             </Button>
             <Button
               disabled={!audioUrl}
@@ -58,7 +63,7 @@ export default function Answer() {
               className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
             >
               <Volume2 className="mr-2 h-5 w-5" />
-              Play
+              Écouter
             </Button>
           </div>
           <div className="flex justify-center mb-4">
@@ -88,7 +93,7 @@ export default function Answer() {
             className="w-full bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
             <Check className="mr-2 h-5 w-5" />
-            Submit Answer
+            Valider la réponse
           </Button>
         </CardFooter>
       </Card>

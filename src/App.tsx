@@ -1,45 +1,44 @@
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Answer from "./features/answer";
+import Transcription from "./features/transcription";
+import PageTitle from "./components/ui/PageTitle";
+import Question from "./features/question";
+import useRecord from "./hooks/useRecord";
 
 const InterviewPracticeApp = () => {
+  const {
+    isRecording,
+    handleStartRecording,
+    handleStopRecording,
+    handlePlayAudio,
+    audioUrl,
+    text,
+    isLoading,
+    error,
+  } = useRecord();
+
+  const recordingProps = {
+    isRecording,
+    handleStartRecording,
+    handleStopRecording,
+    handlePlayAudio,
+    audioUrl,
+  };
+
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-purple-100 to-blue-100 min-h-screen">
+    <div className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
       <div className="container max-w-[600px] mx-auto px-4 py-8 min-h-screen">
-        <motion.h1
-          className="text-3xl font-bold mb-6 text-center text-purple-800"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          React/JavaScript Interview Practice
-        </motion.h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Card className="mb-6 shadow-lg">
-            <CardHeader className="bg-purple-700 text-white">
-              <h2 className="text-xl font-semibold">Question</h2>
-            </CardHeader>
-            <CardContent className="p-4">
-              <p className="text-lg font-bold">
-                {
-                  "Quels sont les déclencheurs d'un nouveau rendu d'un composant en React ?"
-                }
-              </p>
-              <p className="text-primary mt-2">
-                {'Press "Start" to begin the interview question.'}
-              </p>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <Answer />
+        <PageTitle>InterviewAI 🤖</PageTitle>
+        <Question>
+          Citez au moins trois raisons distinctes pour lesquelles un composant
+          React pourrait être re-rendu.
+        </Question>
+        <Answer {...recordingProps} />
+        <Transcription isLoading={isLoading} error={error}>
+          {text}
+        </Transcription>
 
         {/* <AnimatePresence>
         {feedback && (
@@ -72,7 +71,7 @@ const InterviewPracticeApp = () => {
             className="bg-white hover:bg-gray-100 text-gray-800 transition-colors duration-300"
           >
             <RotateCcw className="mr-2 h-5 w-5" />
-            Reset
+            Réinitialiser
           </Button>
         </motion.div>
       </div>

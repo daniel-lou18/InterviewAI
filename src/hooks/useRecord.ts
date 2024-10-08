@@ -7,7 +7,9 @@ export default function useRecord() {
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [text, setText] = useState("");
 
   useEffect(() => {
     async function initRecorder() {
@@ -35,12 +37,17 @@ export default function useRecord() {
       const audio = new Audio(audioUrl);
       setAudio(audio);
 
+      setIsLoading(true);
       const result = await getTextFromSpeech(audioBlob);
 
       if ("error" in result) {
         setError(result.error.message);
+        setIsLoading(false);
       } else {
-        console.log(result.text);
+        const text = result.text;
+        console.log(text);
+        setText(text);
+        setIsLoading(false);
       }
     }
   };
@@ -57,6 +64,8 @@ export default function useRecord() {
     handlePlayAudio,
     isRecording,
     audioUrl,
+    isLoading,
     error,
+    text,
   };
 }
