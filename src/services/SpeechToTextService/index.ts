@@ -1,7 +1,6 @@
 import { requestApi } from "../requestApi";
 
-const BASE_URL =
-  "https://api-inference.huggingface.co/models/openai/whisper-large-v3";
+const BASE_URL = import.meta.env.VITE_HF_API_URL;
 
 type ApiSuccessResponse = { text: string };
 type ApiErrorResponse = { error: { message: string } };
@@ -12,7 +11,7 @@ export async function getTextFromSpeech(
   const options = {
     method: "POST",
     headers: {
-      Authorization: `Bearer`,
+      Authorization: `Bearer ${import.meta.env.VITE_HF_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: audioBlob,
@@ -28,3 +27,5 @@ export async function getTextFromSpeech(
     };
   }
 }
+
+console.log(BASE_URL);
