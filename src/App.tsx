@@ -6,8 +6,8 @@ import Answer from "./features/answer";
 
 const InterviewPracticeApp = () => {
   return (
-    <div className="container w-screen h-screen bg-gradient-to-br from-purple-100 to-blue-100 min-h-screen">
-      <div className="container max-w-[600px] mx-auto p-4 min-h-screen">
+    <div className="w-screen h-screen bg-gradient-to-br from-purple-100 to-blue-100 min-h-screen">
+      <div className="container max-w-[600px] mx-auto px-4 py-8 min-h-screen">
         <motion.h1
           className="text-3xl font-bold mb-6 text-center text-purple-800"
           initial={{ opacity: 0, y: -20 }}
@@ -27,7 +27,12 @@ const InterviewPracticeApp = () => {
               <h2 className="text-xl font-semibold">Question</h2>
             </CardHeader>
             <CardContent className="p-4">
-              <p className="text-lg">
+              <p className="text-lg font-bold">
+                {
+                  "Quels sont les déclencheurs d'un nouveau rendu d'un composant en React ?"
+                }
+              </p>
+              <p className="text-primary mt-2">
                 {'Press "Start" to begin the interview question.'}
               </p>
             </CardContent>

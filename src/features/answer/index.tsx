@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import useRecord from "@/hooks/useRecord";
 
 export default function Answer() {
@@ -61,18 +61,25 @@ export default function Answer() {
               Play
             </Button>
           </div>
-          <AnimatePresence>
-            {isRecording && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="flex justify-center mb-4"
-              >
-                <Mic className="text-red-500 animate-pulse h-12 w-12" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className="flex justify-center mb-4">
+            <motion.div
+              animate={{
+                scale: isRecording ? [1, 1.2, 1] : 1,
+                opacity: isRecording ? 1 : 0.5,
+              }}
+              transition={{
+                duration: 1,
+                repeat: isRecording ? Infinity : 0,
+                repeatType: "loop",
+              }}
+            >
+              <Mic
+                className={`h-12 w-12 ${
+                  isRecording ? "text-red-500" : "text-gray-400"
+                }`}
+              />
+            </motion.div>
+          </div>
           <p className="whitespace-pre-wrap text-lg"></p>
         </CardContent>
         <CardFooter>
