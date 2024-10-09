@@ -28,7 +28,7 @@ export default function Answer({
       transition={{ duration: 0.5, delay: 0.4 }}
     >
       <Card className="mb-6 shadow-lg overflow-hidden">
-        <CardHeader className="bg-blue-700 text-white">
+        <CardHeader className="bg-blue-500 text-white">
           <h2 className="text-lg font-semibold">Enregistrer votre réponse</h2>
         </CardHeader>
         <CardContent className="p-4">
