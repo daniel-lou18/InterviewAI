@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { PropsWithChildren, ReactNode, useState } from "react";
+import { parseEvaluation } from "@/utils/helpers";
+import TextTitle from "@/components/ui/TextTitle";
+import Text from "@/components/ui/Text";
 
 type TranscriptionProps = {
   isLoading: boolean;
@@ -18,6 +21,7 @@ export default function Evaluation({
   isLoading,
 }: TranscriptionProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const { score, motivation, feedback } = parseEvaluation(children as string);
 
   let content: ReactNode;
 
@@ -29,13 +33,16 @@ export default function Evaluation({
     );
   } else {
     content = (
-      <p
+      <div
         className={`transition-all duration-300 ${
           isExpanded ? "max-h-full" : "max-h-16 overflow-hidden"
         }`}
       >
-        {children}
-      </p>
+        <TextTitle>{`Note globale : ${score}`}</TextTitle>
+        <Text>{motivation}</Text>
+        <TextTitle>Conseils</TextTitle>
+        <Text>{feedback}</Text>
+      </div>
     );
   }
 
@@ -46,7 +53,7 @@ export default function Evaluation({
       transition={{ duration: 0.5, delay: 0.4 }}
     >
       <Card className="mb-6 shadow-lg overflow-hidden">
-        <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center mb-2">
+        <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center">
           <h2 className="text-lg font-semibold">Évaluation</h2>
           <button onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? <ChevronUp /> : <ChevronDown />}

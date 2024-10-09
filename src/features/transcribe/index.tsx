@@ -47,7 +47,7 @@ export default function Transcription({
       transition={{ duration: 0.5, delay: 0.4 }}
     >
       <Card className="mb-6 shadow-lg overflow-hidden">
-        <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center mb-2">
+        <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center">
           <h2 className="text-lg font-semibold">Texte transcrit</h2>
           <button onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? <ChevronUp /> : <ChevronDown />}
