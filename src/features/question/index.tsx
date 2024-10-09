@@ -1,4 +1,5 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import Card from "@/components/ui/CompoundCard";
+import Text from "@/components/ui/Text";
 import { motion } from "framer-motion";
 import { PropsWithChildren } from "react";
 
@@ -9,16 +10,14 @@ export default function Question({ children }: PropsWithChildren) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <Card className="mb-6 shadow-lg overflow-hidden">
-        <CardHeader className="bg-purple-700 text-white">
-          <h2 className="text-lg font-semibold">Question</h2>
-        </CardHeader>
-        <CardContent className="p-4">
-          <p className="text-lg font-bold">{children}</p>
-          <p className="text-primary mt-2 text-sm">
+      <Card>
+        <Card.Header className="bg-purple-700">Question</Card.Header>
+        <Card.Content className="p-4">
+          <Text className="text-lg font-bold">{children}</Text>
+          <Text className="text-primary mt-2 text-sm">
             {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
-          </p>
-        </CardContent>
+          </Text>
+        </Card.Content>
       </Card>
     </motion.div>
   );

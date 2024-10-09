@@ -1,16 +1,14 @@
-import { ChevronDown, ChevronUp, Forward, Loader2 } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { ChevronDown, ChevronUp, Forward } from "lucide-react";
+import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { parseEvaluation } from "@/utils/helpers";
 import TextTitle from "@/components/ui/TextTitle";
 import Text from "@/components/ui/Text";
 import { Button } from "@/components/ui/button";
+import Container from "@/components/ui/Container";
+import Loader from "@/components/ui/Loader";
+import Card from "@/components/ui/CompoundCard";
 
 type TranscriptionProps = {
   isLoading: boolean;
@@ -27,20 +25,16 @@ export default function Evaluation({
   let content: ReactNode;
 
   if (isLoading) {
-    content = (
-      <div className="w-full flex justify-center">
-        <Loader2 className="animate-spin size-12" />
-      </div>
-    );
+    content = <Loader />;
   } else if (!isLoading && !children) {
     content = (
-      <p className="text-sm text-gray-500">
+      <Text className="text-sm text-gray-500">
         L'evaluation de votre transcription sera affichée ici
-      </p>
+      </Text>
     );
   } else {
     content = (
-      <div
+      <Container
         className={`transition-all duration-300 ${
           isExpanded ? "max-h-full" : "max-h-16 overflow-hidden"
         }`}
@@ -49,7 +43,7 @@ export default function Evaluation({
         <Text>{motivation}</Text>
         <TextTitle>Conseils</TextTitle>
         <Text>{feedback}</Text>
-      </div>
+      </Container>
     );
   }
 
@@ -59,15 +53,15 @@ export default function Evaluation({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <Card className="mb-6 shadow-lg overflow-hidden">
+      <Card>
         <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center">
           <h2 className="text-lg font-semibold">Évaluation</h2>
           <button onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? <ChevronUp /> : <ChevronDown />}
           </button>
         </CardHeader>
-        <CardContent className="pt-6">{content}</CardContent>
-        <CardFooter className="flex justify-end">
+        <Card.Content className="pt-6">{content}</Card.Content>
+        <Card.Footer className="justify-end">
           <Button
             disabled={!children}
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
@@ -75,7 +69,7 @@ export default function Evaluation({
             <Forward className="mr-2 h-4 w-4" />
             Réévaluer
           </Button>
-        </CardFooter>
+        </Card.Footer>
       </Card>
     </motion.div>
   );

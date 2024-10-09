@@ -1,13 +1,11 @@
 import { Play, Pause, Mic, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import useRecord from "@/hooks/useRecord";
+import Card from "@/components/ui/CompoundCard";
+import Container from "@/components/ui/Container";
+import Text from "@/components/ui/Text";
 
 type AnswerProps = Omit<
   ReturnType<typeof useRecord>,
@@ -27,13 +25,11 @@ export default function Answer({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
     >
-      <Card className="mb-6 shadow-lg overflow-hidden">
-        <CardHeader className="bg-blue-500 text-white">
-          <h2 className="text-lg font-semibold">Enregistrer votre réponse</h2>
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <p
+      <Card>
+        <Card.Header> Enregistrer votre réponse</Card.Header>
+        <Card.Content className="p-4">
+          <Container className="flex items-center justify-between mb-4">
+            <Text
               className={`text-sm ${
                 isRecording ? "text-red-600 font-semibold" : "text-gray-600"
               }`}
@@ -41,7 +37,7 @@ export default function Answer({
               {isRecording
                 ? "Enregistrement en cours..."
                 : "Prêt à enregistrer"}
-            </p>
+            </Text>
             <Button
               onClick={isRecording ? handleStopRecording : handleStartRecording}
               className={`transition-all duration-300 ${
@@ -65,8 +61,8 @@ export default function Answer({
               <Volume2 className="mr-2 h-4 w-4" />
               Écouter
             </Button>
-          </div>
-          <div className="flex justify-center pt-2 mb-4">
+          </Container>
+          <Container className="flex justify-center pt-2 mb-4">
             <motion.div
               animate={{
                 scale: isRecording ? [1, 1.2, 1] : 1,
@@ -84,9 +80,8 @@ export default function Answer({
                 }`}
               />
             </motion.div>
-          </div>
-          <p className="whitespace-pre-wrap text-lg"></p>
-        </CardContent>
+          </Container>
+        </Card.Content>
         <CardFooter></CardFooter>
       </Card>
     </motion.div>

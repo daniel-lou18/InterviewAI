@@ -1,7 +1,8 @@
-import { ReactNode } from "react";
+import { PropsWithChildrenClassName } from "@/utils/types";
 
-type ContainerProps = { children: ReactNode; className?: string };
-
-export default function Container({ children, className }: ContainerProps) {
+export default function Container({
+  children,
+  className,
+}: PropsWithChildrenClassName) {
   return <div className={className}>{children}</div>;
 }

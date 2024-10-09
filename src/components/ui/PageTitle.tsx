@@ -1,11 +1,8 @@
 import { cn } from "@/lib/utils";
+import { PropsWithChildrenClassName } from "@/utils/types";
 import { motion } from "framer-motion";
-import { PropsWithChildren } from "react";
 
-function PageTitle({
-  children,
-  className,
-}: PropsWithChildren & { className?: string }) {
+function PageTitle({ children, className }: PropsWithChildrenClassName) {
   return (
     <motion.h1
       className={cn(

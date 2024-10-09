@@ -38,8 +38,8 @@ const InterviewPracticeApp = () => {
 
   return (
     <Container className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
-      <Container className="container mx-auto px-4 py-8 min-h-screen md:grid grid-cols-2 md:max-w-[80%] gap-x-6">
-        <PageTitle className="md:col-span-2">InterviewAI 🤖</PageTitle>
+      <Container className="container mx-auto px-4 py-8 min-h-screen lg:grid grid-cols-2 lg:max-w-[90%] gap-x-6">
+        <PageTitle className="lg:col-span-2">InterviewAI 🤖</PageTitle>
         <Question>
           Citez au moins trois raisons distinctes pour lesquelles un composant
           React pourrait être re-rendu.
@@ -76,7 +76,7 @@ const InterviewPracticeApp = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex justify-center md:col-span-2"
+          className="flex justify-center lg:col-span-2"
         >
           <Button
             variant="outline"
