@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
+import { useMutation } from "@tanstack/react-query";
 
 export default function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [text, setText] = useState("");
+
+  const {
+    mutate,
+    isPending: isLoading,
+    error,
+    data,
+    reset,
+  } = useMutation({
+    mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
+  });
 
   useEffect(() => {
     async function initRecorder() {
@@ -23,10 +31,9 @@ export default function useRecord() {
   }, []);
 
   const handleStartRecording = () => {
-    setText("");
-    setError("");
     setIsRecording(true);
     recorder?.startRecording();
+    reset();
   };
 
   const handleStopRecording = async () => {
@@ -38,18 +45,7 @@ export default function useRecord() {
       const audio = new Audio(audioUrl);
       setAudio(audio);
 
-      setIsLoading(true);
-      const result = await getTextFromSpeech(audioBlob);
-
-      if ("error" in result) {
-        setError(result.error.message);
-        setIsLoading(false);
-      } else {
-        const text = result.text;
-        console.log(text);
-        setText(text);
-        setIsLoading(false);
-      }
+      mutate(audioBlob);
     }
   };
 
@@ -66,7 +62,7 @@ export default function useRecord() {
     isRecording,
     audioUrl,
     isLoading,
-    error,
-    text,
+    error: error ? (error as Error).message : "",
+    text: data && "text" in data ? data.text : "",
   };
 }
