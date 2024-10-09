@@ -2,10 +2,12 @@ import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Answer from "./features/answer";
-import Transcription from "./features/transcription";
+import Transcription from "./features/transcribe";
 import PageTitle from "./components/ui/PageTitle";
 import Question from "./features/question";
 import useRecord from "./hooks/useRecord";
+import useEvaluate from "./hooks/useEvaluate";
+import Evaluation from "./features/evaluate";
 
 const InterviewPracticeApp = () => {
   const {
@@ -18,6 +20,11 @@ const InterviewPracticeApp = () => {
     isLoading,
     error,
   } = useRecord();
+  const {
+    feedback,
+    isLoading: isLoadingFeedback,
+    error: feedbackError,
+  } = useEvaluate(text);
 
   const recordingProps = {
     isRecording,
@@ -29,16 +36,23 @@ const InterviewPracticeApp = () => {
 
   return (
     <div className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
-      <div className="container max-w-[600px] mx-auto px-4 py-8 min-h-screen">
-        <PageTitle>InterviewAI 🤖</PageTitle>
-        <Question>
-          Citez au moins trois raisons distinctes pour lesquelles un composant
-          React pourrait être re-rendu.
-        </Question>
-        <Answer {...recordingProps} />
-        <Transcription isLoading={isLoading} error={error}>
-          {text}
-        </Transcription>
+      <div className="container max-w-[600px] mx-auto px-4 py-8 min-h-screen md:grid grid-cols-2 md:max-w-[80%] gap-x-6">
+        <PageTitle className="md:col-span-2">InterviewAI 🤖</PageTitle>
+        <div className="md:row-span-2">
+          <Question>
+            Citez au moins trois raisons distinctes pour lesquelles un composant
+            React pourrait être re-rendu.
+          </Question>
+          <Answer {...recordingProps} />
+        </div>
+        <div className="md:row-span-3">
+          <Transcription isLoading={isLoading} error={error}>
+            {text}
+          </Transcription>
+          <Evaluation isLoading={isLoadingFeedback} error={feedbackError}>
+            {feedback}
+          </Evaluation>
+        </div>
 
         {/* <AnimatePresence>
         {feedback && (

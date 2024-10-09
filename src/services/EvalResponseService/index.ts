@@ -5,8 +5,8 @@ const BASE_URL = import.meta.env.VITE_HF_API_URL;
 type ApiSuccessResponse = { text: string };
 type ApiErrorResponse = { error: { message: string } };
 
-export async function getTextFromSpeech(
-  audioBlob: Blob
+export async function evaluateResponse(
+  inputs: string
 ): Promise<ApiSuccessResponse | ApiErrorResponse> {
   const options = {
     method: "POST",
@@ -14,15 +14,19 @@ export async function getTextFromSpeech(
       Authorization: `Bearer ${import.meta.env.VITE_HF_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: audioBlob,
+    body: JSON.stringify({
+      inputs,
+      parameters: { max_new_tokens: 1024, return_full_text: false },
+    }),
   };
 
   try {
-    const response = await requestApi<ApiSuccessResponse>(
-      `${BASE_URL}/openai/whisper-large-v3`,
+    const response = await requestApi<[{ generated_text: string }]>(
+      `${BASE_URL}/mistralai/Mistral-Nemo-Instruct-2407`,
       options
     );
-    return response;
+    console.log(response);
+    return { text: response[0].generated_text };
   } catch (err: unknown) {
     console.error(err);
     return {

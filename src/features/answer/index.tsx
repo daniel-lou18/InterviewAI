@@ -29,7 +29,7 @@ export default function Answer({
     >
       <Card className="mb-6 shadow-lg overflow-hidden">
         <CardHeader className="bg-blue-700 text-white">
-          <h2 className="text-lg font-semibold">Votre réponse</h2>
+          <h2 className="text-lg font-semibold">Enregistrer votre réponse</h2>
         </CardHeader>
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-4">
