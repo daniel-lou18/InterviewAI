@@ -1,4 +1,4 @@
-import { Play, Pause, Check, Mic, Volume2 } from "lucide-react";
+import { Play, Pause, Mic, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -51,9 +51,9 @@ export default function Answer({
               }`}
             >
               {isRecording ? (
-                <Pause className="mr-2 h-5 w-5" />
+                <Pause className="mr-2 h-4 w-4" />
               ) : (
-                <Play className="mr-2 h-5 w-5" />
+                <Play className="mr-2 h-4 w-4" />
               )}
               {isRecording ? "Arrêter" : "Démarrer"}
             </Button>
@@ -62,11 +62,11 @@ export default function Answer({
               onClick={handlePlayAudio}
               className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
             >
-              <Volume2 className="mr-2 h-5 w-5" />
+              <Volume2 className="mr-2 h-4 w-4" />
               Écouter
             </Button>
           </div>
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center pt-2 mb-4">
             <motion.div
               animate={{
                 scale: isRecording ? [1, 1.2, 1] : 1,
@@ -87,15 +87,7 @@ export default function Answer({
           </div>
           <p className="whitespace-pre-wrap text-lg"></p>
         </CardContent>
-        <CardFooter>
-          <Button
-            disabled={false}
-            className="w-full bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
-          >
-            <Check className="mr-2 h-5 w-5" />
-            Valider la réponse
-          </Button>
-        </CardFooter>
+        <CardFooter></CardFooter>
       </Card>
     </motion.div>
   );

@@ -23,8 +23,9 @@ export default function useRecord() {
   }, []);
 
   const handleStartRecording = () => {
-    setIsRecording(true);
+    setText("");
     setError("");
+    setIsRecording(true);
     recorder?.startRecording();
   };
 

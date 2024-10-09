@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Forward, Loader2 } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -10,6 +10,7 @@ import { PropsWithChildren, ReactNode, useState } from "react";
 import { parseEvaluation } from "@/utils/helpers";
 import TextTitle from "@/components/ui/TextTitle";
 import Text from "@/components/ui/Text";
+import { Button } from "@/components/ui/button";
 
 type TranscriptionProps = {
   isLoading: boolean;
@@ -30,6 +31,12 @@ export default function Evaluation({
       <div className="w-full flex justify-center">
         <Loader2 className="animate-spin size-12" />
       </div>
+    );
+  } else if (!isLoading && !children) {
+    content = (
+      <p className="text-sm text-gray-500">
+        L'evaluation de votre transcription sera affichée ici
+      </p>
     );
   } else {
     content = (
@@ -59,8 +66,16 @@ export default function Evaluation({
             {isExpanded ? <ChevronUp /> : <ChevronDown />}
           </button>
         </CardHeader>
-        <CardContent className="p-4">{content}</CardContent>
-        <CardFooter></CardFooter>
+        <CardContent className="pt-6">{content}</CardContent>
+        <CardFooter className="flex justify-end">
+          <Button
+            disabled={!children}
+            className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+          >
+            <Forward className="mr-2 h-4 w-4" />
+            Réévaluer
+          </Button>
+        </CardFooter>
       </Card>
     </motion.div>
   );

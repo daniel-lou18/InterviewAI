@@ -25,7 +25,6 @@ export async function evaluateResponse(
       `${BASE_URL}/mistralai/Mistral-Nemo-Instruct-2407`,
       options
     );
-    console.log(response);
     return { text: response[0].generated_text };
   } catch (err: unknown) {
     console.error(err);

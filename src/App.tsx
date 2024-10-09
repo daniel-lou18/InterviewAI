@@ -8,6 +8,7 @@ import Question from "./features/question";
 import useRecord from "./hooks/useRecord";
 import useEvaluate from "./hooks/useEvaluate";
 import Evaluation from "./features/evaluate";
+import Container from "./components/ui/Container";
 
 const InterviewPracticeApp = () => {
   const {
@@ -20,6 +21,7 @@ const InterviewPracticeApp = () => {
     isLoading,
     error,
   } = useRecord();
+
   const {
     feedback,
     isLoading: isLoadingFeedback,
@@ -35,24 +37,20 @@ const InterviewPracticeApp = () => {
   };
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
-      <div className="container max-w-[600px] mx-auto px-4 py-8 min-h-screen md:grid grid-cols-2 md:max-w-[80%] gap-x-6">
+    <Container className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
+      <Container className="container mx-auto px-4 py-8 min-h-screen md:grid grid-cols-2 md:max-w-[80%] gap-x-6">
         <PageTitle className="md:col-span-2">InterviewAI 🤖</PageTitle>
-        <div className="md:row-span-2">
-          <Question>
-            Citez au moins trois raisons distinctes pour lesquelles un composant
-            React pourrait être re-rendu.
-          </Question>
-          <Answer {...recordingProps} />
-        </div>
-        <div className="md:row-span-3">
-          <Transcription isLoading={isLoading} error={error}>
-            {text}
-          </Transcription>
-          <Evaluation isLoading={isLoadingFeedback} error={feedbackError}>
-            {feedback}
-          </Evaluation>
-        </div>
+        <Question>
+          Citez au moins trois raisons distinctes pour lesquelles un composant
+          React pourrait être re-rendu.
+        </Question>
+        <Transcription isLoading={isLoading} error={error}>
+          {text}
+        </Transcription>
+        <Answer {...recordingProps} />
+        <Evaluation isLoading={isLoadingFeedback} error={feedbackError}>
+          {feedback}
+        </Evaluation>
 
         {/* <AnimatePresence>
         {feedback && (
@@ -88,8 +86,8 @@ const InterviewPracticeApp = () => {
             Réinitialiser
           </Button>
         </motion.div>
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 };
 

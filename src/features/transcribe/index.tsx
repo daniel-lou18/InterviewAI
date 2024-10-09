@@ -1,4 +1,4 @@
-import { Check, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, Loader2, Pen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,6 +28,12 @@ export default function Transcription({
         <Loader2 className="animate-spin size-12" />
       </div>
     );
+  } else if (!isLoading && !children) {
+    content = (
+      <p className="text-sm text-gray-500">
+        La transcription de votre réponse sera affichée ici
+      </p>
+    );
   } else {
     content = (
       <p
@@ -53,14 +59,21 @@ export default function Transcription({
             {isExpanded ? <ChevronUp /> : <ChevronDown />}
           </button>
         </CardHeader>
-        <CardContent className="p-4">{content}</CardContent>
-        <CardFooter>
+        <CardContent className="pt-6">{content}</CardContent>
+        <CardFooter className="flex justify-between">
           <Button
-            disabled={false}
-            className="w-full bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+            disabled={!children}
+            className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
-            <Check className="mr-2 h-5 w-5" />
-            Modifier la transcription
+            <Pen className="mr-2 h-4 w-4" />
+            Éditer la transcription
+          </Button>
+          <Button
+            disabled={!children}
+            className=" bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+          >
+            <Check className="mr-2 h-4 w-4" />
+            Valider la réponse
           </Button>
         </CardFooter>
       </Card>
