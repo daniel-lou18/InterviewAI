@@ -2,21 +2,24 @@ import { useCallback, useEffect, useState } from "react";
 import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
 import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { setTranscription } from "@/slices/transcriptionSlice";
 
 export default function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const dispatch = useDispatch();
 
-  const {
-    mutate,
-    isPending: isLoading,
-    error,
-    data,
-    reset,
-  } = useMutation({
+  const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
+    mutationKey: ["transcription"],
+    onSuccess: (data) => {
+      if (data && "text" in data) {
+        dispatch(setTranscription(data.text));
+      }
+    },
   });
 
   useEffect(() => {
@@ -61,8 +64,5 @@ export default function useRecord() {
     handlePlayAudio,
     isRecording,
     audioUrl,
-    isLoading,
-    error: error ? (error as Error).message : "",
-    text: data && "text" in data ? data.text : "",
   };
 }

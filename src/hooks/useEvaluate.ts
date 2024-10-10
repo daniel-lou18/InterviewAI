@@ -1,34 +1,23 @@
 import { evaluateResponse } from "@/services/EvalResponseService";
+import { setEvaluation } from "@/slices/evaluationSlice";
 import { createAnswerInput } from "@/utils/prompts";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
 
-export default function useEvaluate(userResponse: string) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [feedback, setFeedback] = useState("");
-
-  useEffect(() => {
-    if (!userResponse) return;
-
-    async function getFeedback() {
-      setIsLoading(true);
+export default function useEvaluate() {
+  const dispatch = useDispatch();
+  const { mutate } = useMutation({
+    mutationFn: (userResponse: string) => {
       const inputs = createAnswerInput(userResponse);
-      const result = await evaluateResponse(inputs);
-
-      if ("error" in result) {
-        setError(result.error.message);
-        setIsLoading(false);
-      } else {
-        const feedback = result.text;
-        console.log(feedback);
-        setFeedback(feedback);
-        setIsLoading(false);
+      return evaluateResponse(inputs);
+    },
+    mutationKey: ["evaluation"],
+    onSuccess: (data) => {
+      if (data && "text" in data) {
+        dispatch(setEvaluation(data.text));
       }
-    }
+    },
+  });
 
-    getFeedback();
-  }, [userResponse]);
-
-  return { isLoading, error, feedback };
+  return { mutate };
 }

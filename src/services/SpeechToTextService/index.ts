@@ -24,12 +24,14 @@ export async function getTextFromSpeech(
     return response;
   } catch (err: unknown) {
     console.error(err);
+
     let message: string;
     if (err instanceof Error) {
       message = err.message;
     } else {
       message = "Unknown error";
     }
+
     throw new Error(message);
   }
 }

@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp, Forward } from "lucide-react";
 import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { PropsWithChildren, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { parseEvaluation } from "@/utils/helpers";
 import TextTitle from "@/components/ui/TextTitle";
 import Text from "@/components/ui/Text";
@@ -9,24 +9,24 @@ import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/Container";
 import Loader from "@/components/ui/Loader";
 import Card from "@/components/ui/CompoundCard";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 type TranscriptionProps = {
   isLoading: boolean;
   error: string;
-} & PropsWithChildren;
+};
 
-export default function Evaluation({
-  children,
-  isLoading,
-}: TranscriptionProps) {
+export default function Evaluation({ isLoading }: TranscriptionProps) {
   const [isExpanded, setIsExpanded] = useState(true);
-  const { score, motivation, feedback } = parseEvaluation(children as string);
+  const text = useSelector((state: RootState) => state.evaluation.text);
+  const { score, motivation, feedback } = parseEvaluation(text);
 
   let content: ReactNode;
 
   if (isLoading) {
     content = <Loader />;
-  } else if (!isLoading && !children) {
+  } else if (!isLoading && !text) {
     content = (
       <Text className="text-sm text-gray-500">
         L'evaluation de votre transcription sera affichée ici
@@ -63,7 +63,7 @@ export default function Evaluation({
         <Card.Content className="pt-6">{content}</Card.Content>
         <Card.Footer className="justify-end">
           <Button
-            disabled={!children}
+            disabled={!text}
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
             <Forward className="mr-2 h-4 w-4" />

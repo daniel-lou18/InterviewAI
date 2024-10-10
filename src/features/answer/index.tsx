@@ -7,18 +7,15 @@ import Card from "@/components/ui/CompoundCard";
 import Container from "@/components/ui/Container";
 import Text from "@/components/ui/Text";
 
-type AnswerProps = Omit<
-  ReturnType<typeof useRecord>,
-  "text" | "error" | "isLoading"
->;
+export default function Answer() {
+  const {
+    isRecording,
+    handleStartRecording,
+    handleStopRecording,
+    handlePlayAudio,
+    audioUrl,
+  } = useRecord();
 
-export default function Answer({
-  isRecording,
-  handleStopRecording,
-  handleStartRecording,
-  audioUrl,
-  handlePlayAudio,
-}: AnswerProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
