@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
 import { useMutation } from "@tanstack/react-query";
@@ -30,13 +30,13 @@ export default function useRecord() {
     initRecorder();
   }, []);
 
-  const handleStartRecording = () => {
+  const handleStartRecording = useCallback(() => {
     setIsRecording(true);
     recorder?.startRecording();
     reset();
-  };
+  }, [recorder, reset]);
 
-  const handleStopRecording = async () => {
+  const handleStopRecording = useCallback(async () => {
     setIsRecording(false);
     if (recorder) {
       const audioBlob = await recorder.stopRecording();
@@ -47,13 +47,13 @@ export default function useRecord() {
 
       mutate(audioBlob);
     }
-  };
+  }, [recorder, mutate]);
 
-  const handlePlayAudio = () => {
+  const handlePlayAudio = useCallback(() => {
     if (audio) {
       audio.play();
     }
-  };
+  }, [audio]);
 
   return {
     handleStartRecording,
