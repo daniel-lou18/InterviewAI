@@ -1,7 +1,6 @@
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import Answer from "../features/answer";
 import Transcription from "../features/transcribe";
 import PageTitle from "../components/ui/PageTitle";
 import Question from "../features/question";
@@ -11,14 +10,13 @@ import Evaluation from "@/features/evaluate";
 const Interview = () => {
   return (
     <Container className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
-      <Container className="container mx-auto px-4 py-8 min-h-screen lg:grid grid-cols-2 lg:max-w-[90%] gap-x-6">
+      <Container className="container mx-auto px-4 py-8 min-h-screen lg:grid grid-cols-2 lg:max-w-[1024px] gap-x-6">
         <PageTitle className="lg:col-span-2">InterviewAI 🤖</PageTitle>
         <Question>
           Citez au moins trois raisons distinctes pour lesquelles un composant
           React pourrait être re-rendu.
         </Question>
         <Transcription />
-        <Answer />
         <Evaluation />
 
         {/* <AnimatePresence>

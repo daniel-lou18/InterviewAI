@@ -1,11 +1,14 @@
-import { PropsWithChildren } from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import TextTitle from "./TextTitle";
 import { cn } from "@/lib/utils";
 import { PropsWithChildrenClassName } from "@/utils/types";
 
-function CardContainer({ children }: PropsWithChildren) {
-  return <Card className="mb-6 shadow-lg overflow-hidden">{children}</Card>;
+function CardContainer({ children, className }: PropsWithChildrenClassName) {
+  return (
+    <Card className={cn("mb-6 shadow-lg overflow-hidden", className)}>
+      {children}
+    </Card>
+  );
 }
 
 function Header({ children, className }: PropsWithChildrenClassName) {
