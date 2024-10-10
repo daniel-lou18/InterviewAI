@@ -14,7 +14,7 @@ import useEvaluate from "@/hooks/useEvaluate";
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
   const text = useSelector((state: RootState) => state.transcription.text);
-  const isLoading = useIsMutating();
+  const isLoading = useIsMutating({ mutationKey: ["transcription"] });
   const { mutate } = useEvaluate();
 
   let content: ReactNode;

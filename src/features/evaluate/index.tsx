@@ -11,16 +11,13 @@ import Loader from "@/components/ui/Loader";
 import Card from "@/components/ui/CompoundCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useIsMutating } from "@tanstack/react-query";
 
-type TranscriptionProps = {
-  isLoading: boolean;
-  error: string;
-};
-
-export default function Evaluation({ isLoading }: TranscriptionProps) {
+export default function Evaluation() {
   const [isExpanded, setIsExpanded] = useState(true);
   const text = useSelector((state: RootState) => state.evaluation.text);
   const { score, motivation, feedback } = parseEvaluation(text);
+  const isLoading = useIsMutating({ mutationKey: ["evaluation"] });
 
   let content: ReactNode;
 
