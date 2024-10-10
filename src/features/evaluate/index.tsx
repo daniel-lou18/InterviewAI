@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronUp, Forward } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { ReactNode, useState } from "react";
@@ -12,6 +12,7 @@ import Card from "@/components/ui/CompoundCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useIsMutating } from "@tanstack/react-query";
+import Icon from "@/components/ui/Icon";
 
 export default function Evaluation() {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -60,10 +61,11 @@ export default function Evaluation() {
         <Card.Content className="pt-6">{content}</Card.Content>
         <Card.Footer className="justify-end">
           <Button
+            size="sm"
             disabled={!text}
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
-            <Forward className="mr-2 h-4 w-4" />
+            <Icon iconName="Forward" />
             Réévaluer
           </Button>
         </Card.Footer>

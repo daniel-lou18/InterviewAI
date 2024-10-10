@@ -2,10 +2,11 @@ import Card from "@/components/ui/CompoundCard";
 import Text from "@/components/ui/Text";
 import { motion } from "framer-motion";
 import { PropsWithChildren } from "react";
-import { Play, Pause, Mic, Volume2 } from "lucide-react";
+import { Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useRecord from "@/hooks/useRecord";
 import Container from "@/components/ui/Container";
+import Icon from "@/components/ui/Icon";
 
 export default function Question({ children }: PropsWithChildren) {
   const {
@@ -27,10 +28,10 @@ export default function Question({ children }: PropsWithChildren) {
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">
           <Text className="text-lg font-bold">{children}</Text>
-          <Text className="text-primary mt-2 text-sm">
-            {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
-          </Text>
-          <Container className="flex items-center justify-between mb-4">
+          <Container className="flex justify-between">
+            <Text className="text-primary mt-2 text-sm">
+              {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
+            </Text>
             <Text
               className={`text-sm ${
                 isRecording ? "text-red-600 font-semibold" : "text-gray-600"
@@ -40,31 +41,8 @@ export default function Question({ children }: PropsWithChildren) {
                 ? "Enregistrement en cours..."
                 : "Prêt à enregistrer"}
             </Text>
-            <Button
-              onClick={isRecording ? handleStopRecording : handleStartRecording}
-              className={`transition-all duration-300 ${
-                isRecording
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-green-500 hover:bg-green-600"
-              }`}
-            >
-              {isRecording ? (
-                <Pause className="mr-2 h-4 w-4" />
-              ) : (
-                <Play className="mr-2 h-4 w-4" />
-              )}
-              {isRecording ? "Arrêter" : "Démarrer"}
-            </Button>
-            <Button
-              disabled={!audioUrl}
-              onClick={handlePlayAudio}
-              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-            >
-              <Volume2 className="mr-2 h-4 w-4" />
-              Écouter
-            </Button>
           </Container>
-          <Container className="flex justify-center pt-2 mb-4">
+          <Container className="flex justify-center my-10">
             <motion.div
               animate={{
                 scale: isRecording ? [1, 1.2, 1] : 1,
@@ -82,6 +60,40 @@ export default function Question({ children }: PropsWithChildren) {
                 }`}
               />
             </motion.div>
+          </Container>
+          <Container className="flex items-center justify-between">
+            <Button
+              size="sm"
+              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+            >
+              <Icon iconName="RotateCcw" />
+              Réinitialiser
+            </Button>
+            <Button
+              size="sm"
+              onClick={isRecording ? handleStopRecording : handleStartRecording}
+              className={`transition-all duration-300 ${
+                isRecording
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-green-500 hover:bg-green-600"
+              }`}
+            >
+              {isRecording ? (
+                <Icon iconName="Pause" />
+              ) : (
+                <Icon iconName="Play" />
+              )}
+              {isRecording ? "Arrêter" : "Démarrer"}
+            </Button>
+            <Button
+              size="sm"
+              disabled={!audioUrl}
+              onClick={handlePlayAudio}
+              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+            >
+              <Icon iconName="Volume2" />
+              Écouter
+            </Button>
           </Container>
         </Card.Content>
       </Card>

@@ -36,6 +36,7 @@ export default function Answer() {
                 : "Prêt à enregistrer"}
             </Text>
             <Button
+              size="sm"
               onClick={isRecording ? handleStopRecording : handleStartRecording}
               className={`transition-all duration-300 ${
                 isRecording
@@ -51,6 +52,7 @@ export default function Answer() {
               {isRecording ? "Arrêter" : "Démarrer"}
             </Button>
             <Button
+              size="sm"
               disabled={!audioUrl}
               onClick={handlePlayAudio}
               className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"

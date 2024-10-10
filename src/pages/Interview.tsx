@@ -46,6 +46,7 @@ const Interview = () => {
           className="flex justify-center lg:col-span-2"
         >
           <Button
+            size="sm"
             variant="outline"
             className="bg-white hover:bg-gray-100 text-gray-800 transition-colors duration-300"
           >

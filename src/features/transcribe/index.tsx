@@ -1,4 +1,4 @@
-import { Check, ChevronDown, ChevronUp, Pen } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useIsMutating } from "@tanstack/react-query";
 import useEvaluate from "@/hooks/useEvaluate";
+import Icon from "@/components/ui/Icon";
 
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -55,18 +56,20 @@ export default function Transcription() {
         <Card.Content className="pt-6">{content}</Card.Content>
         <Card.Footer className="justify-between">
           <Button
+            size="sm"
             disabled={!text}
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
-            <Pen className="mr-2 h-4 w-4" />
+            <Icon iconName="Pen" />
             Éditer
           </Button>
           <Button
+            size="sm"
             onClick={() => mutate(text)}
             disabled={!text}
             className=" bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
-            <Check className="mr-2 h-4 w-4" />
+            <Icon iconName="Check" />
             Valider
           </Button>
         </Card.Footer>
