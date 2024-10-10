@@ -19,7 +19,7 @@ const Interview = () => {
         </Question>
         <Transcription />
         <Answer />
-        <Evaluation isLoading={false} error={""} />
+        <Evaluation />
 
         {/* <AnimatePresence>
         {feedback && (
