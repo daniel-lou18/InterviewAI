@@ -6,12 +6,14 @@ import PageTitle from "../components/ui/PageTitle";
 import Question from "../features/question";
 import Container from "../components/ui/Container";
 import Evaluation from "@/features/evaluate";
+import ProgressBar from "@/components/ui/ProgressBar";
 
 const Interview = () => {
   return (
     <Container className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
       <Container className="container mx-auto px-4 py-8 min-h-screen lg:grid grid-cols-2 lg:max-w-[1024px] gap-x-6">
         <PageTitle className="lg:col-span-2">InterviewAI 🤖</PageTitle>
+        <ProgressBar />
         <Question>
           Citez au moins trois raisons distinctes pour lesquelles un composant
           React pourrait être re-rendu.

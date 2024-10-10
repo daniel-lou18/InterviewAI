@@ -27,9 +27,9 @@ export default function Question({ children }: PropsWithChildren) {
       <Card>
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">
-          <Text className="text-lg font-bold">{children}</Text>
+          <Text className="text-xl font-bold">{children}</Text>
           <Container className="flex justify-between">
-            <Text className="text-primary mt-2 text-sm">
+            <Text className="text-primary text-sm">
               {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
             </Text>
             <Text
