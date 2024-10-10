@@ -59,7 +59,7 @@ export default function Transcription() {
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
             <Pen className="mr-2 h-4 w-4" />
-            Éditer la transcription
+            Éditer
           </Button>
           <Button
             onClick={() => mutate(text)}
@@ -67,7 +67,7 @@ export default function Transcription() {
             className=" bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
             <Check className="mr-2 h-4 w-4" />
-            Valider la réponse
+            Valider
           </Button>
         </Card.Footer>
       </Card>
