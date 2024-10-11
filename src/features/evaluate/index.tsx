@@ -27,7 +27,7 @@ export default function Evaluation() {
   } else if (!isLoading && !text) {
     content = (
       <Text className="text-sm text-gray-500">
-        L'evaluation de votre transcription sera affichée ici
+        L'évaluation de votre transcription sera affichée ici
       </Text>
     );
   } else {
@@ -59,15 +59,23 @@ export default function Evaluation() {
           </button>
         </CardHeader>
         <Card.Content className="pt-6">{content}</Card.Content>
-        <Card.Footer className="justify-end">
+        <Card.Footer className="justify-start">
           <Button
             size="sm"
             disabled={!text}
             className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
           >
-            <Icon iconName="Forward" />
+            <Icon iconName="RotateCw" />
             Réévaluer
           </Button>
+          {/* <Button
+            size="sm"
+            disabled={!text}
+            className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
+          >
+            <Icon iconName="ArrowBigRight" />
+            Suivant
+          </Button> */}
         </Card.Footer>
       </Card>
     </motion.div>

@@ -6,15 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useRecord } from "@/hooks/useRecord";
 import Container from "@/components/ui/Container";
 import Icon from "@/components/ui/Icon";
-import { useQuestions } from "@/hooks/useQuestions";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useCurrent } from "@/hooks/useCurrent";
 
 export default function Question() {
-  const { data: questions } = useQuestions();
-  const currentQuestionIndex = useSelector(
-    (state: RootState) => state.interview.currentQuestionIndex
-  );
+  const { currentQuestion } = useCurrent();
   const {
     isRecording,
     handleStartRecording,
@@ -22,8 +17,6 @@ export default function Question() {
     handlePlayAudio,
     audioUrl,
   } = useRecord();
-
-  const currentQuestion = questions?.[currentQuestionIndex]?.question;
 
   return (
     <motion.div
@@ -36,20 +29,12 @@ export default function Question() {
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">
           <Text className="text-xl font-bold">
-            {currentQuestion || "Erreur lors de la récupération des questions"}
+            {currentQuestion?.question ||
+              "Erreur lors de la récupération des questions"}
           </Text>
           <Container className="flex justify-between">
             <Text className="text-primary text-sm">
               {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
-            </Text>
-            <Text
-              className={`text-sm ${
-                isRecording ? "text-red-600 font-semibold" : "text-gray-600"
-              }`}
-            >
-              {isRecording
-                ? "Enregistrement en cours..."
-                : "Prêt à enregistrer"}
             </Text>
           </Container>
           <Container className="flex justify-center my-10">

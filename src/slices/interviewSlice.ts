@@ -25,8 +25,15 @@ const interviewSlice = createSlice({
     saveEvaluation(state, action: PayloadAction<Evaluation>) {
       state.evaluations[action.payload.questionId] = action.payload;
     },
+    nextQuestion(state) {
+      state.currentQuestionIndex += 1;
+    },
+    prevQuestion(state) {
+      state.currentQuestionIndex -= 1;
+    },
   },
 });
 
-export const { saveTranscription, saveEvaluation } = interviewSlice.actions;
+export const { saveTranscription, saveEvaluation, nextQuestion, prevQuestion } =
+  interviewSlice.actions;
 export default interviewSlice.reducer;

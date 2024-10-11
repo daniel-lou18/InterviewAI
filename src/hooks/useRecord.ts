@@ -13,7 +13,7 @@ export function useRecord() {
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const dispatch = useDispatch();
-  const { question: currentQuestion } = useCurrent();
+  const { currentQuestion } = useCurrent();
 
   const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
