@@ -8,7 +8,7 @@ import { saveEvaluation } from "@/slices/interviewSlice";
 
 export function useEvaluate() {
   const dispatch = useDispatch();
-  const { question: currentQuestion } = useCurrent();
+  const { currentQuestion } = useCurrent();
 
   const { mutate } = useMutation({
     mutationFn: (userResponse: string) => {
