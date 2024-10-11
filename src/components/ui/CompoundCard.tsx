@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import TextTitle from "./TextTitle";
 import { cn } from "@/lib/utils";
-import { PropsWithChildrenClassName } from "@/utils/types";
+import { PropsWithChildrenClassName } from "@/types/components";
 
 function CardContainer({ children, className }: PropsWithChildrenClassName) {
   return (

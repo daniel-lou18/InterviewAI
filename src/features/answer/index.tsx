@@ -2,7 +2,7 @@ import { Play, Pause, Mic, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import useRecord from "@/hooks/useRecord";
+import { useRecord } from "@/hooks/useRecord";
 import Card from "@/components/ui/CompoundCard";
 import Container from "@/components/ui/Container";
 import Text from "@/components/ui/Text";

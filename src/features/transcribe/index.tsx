@@ -6,17 +6,17 @@ import { ReactNode, useState } from "react";
 import Card from "@/components/ui/CompoundCard";
 import Loader from "@/components/ui/Loader";
 import Text from "@/components/ui/Text";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import { useIsMutating } from "@tanstack/react-query";
-import useEvaluate from "@/hooks/useEvaluate";
+import { useEvaluate } from "@/hooks/useEvaluate";
 import Icon from "@/components/ui/Icon";
+import { useCurrent } from "@/hooks/useCurrent";
 
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const text = useSelector((state: RootState) => state.transcription.text);
   const isLoading = useIsMutating({ mutationKey: ["transcription"] });
   const { mutate } = useEvaluate();
+  const { transcription } = useCurrent();
+  const text = transcription ? transcription.text : "";
 
   let content: ReactNode;
 

@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import transcriptionReducer from "../slices/transcriptionSlice";
-import evaluationReducer from "../slices/evaluationSlice";
+import interviewReducer from "../slices/interviewSlice";
 
 export const store = configureStore({
   reducer: {
-    transcription: transcriptionReducer,
-    evaluation: evaluationReducer,
+    interview: interviewReducer,
   },
 });
 

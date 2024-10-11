@@ -3,21 +3,29 @@ import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { setTranscription } from "@/slices/transcriptionSlice";
+import { saveTranscription } from "@/slices/interviewSlice";
+import { Transcription } from "@/types/interview";
+import { useCurrent } from "./useCurrent";
 
-export default function useRecord() {
+export function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const dispatch = useDispatch();
+  const { question: currentQuestion } = useCurrent();
 
   const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
     mutationKey: ["transcription"],
     onSuccess: (data) => {
-      if (data && "text" in data) {
-        dispatch(setTranscription(data.text));
+      if (data && "text" in data && currentQuestion) {
+        const transcription: Transcription = {
+          id: Date.now(),
+          questionId: currentQuestion.id,
+          text: data.text,
+        };
+        dispatch(saveTranscription(transcription));
       }
     },
   });

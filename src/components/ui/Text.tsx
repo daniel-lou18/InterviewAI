@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { PropsWithChildrenClassName } from "@/utils/types";
+import { PropsWithChildrenClassName } from "@/types/components";
 import React from "react";
 
 type TextProps = {

@@ -9,16 +9,16 @@ import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/Container";
 import Loader from "@/components/ui/Loader";
 import Card from "@/components/ui/CompoundCard";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import { useIsMutating } from "@tanstack/react-query";
 import Icon from "@/components/ui/Icon";
+import { useCurrent } from "@/hooks/useCurrent";
 
 export default function Evaluation() {
   const [isExpanded, setIsExpanded] = useState(true);
-  const text = useSelector((state: RootState) => state.evaluation.text);
-  const { score, motivation, feedback } = parseEvaluation(text);
   const isLoading = useIsMutating({ mutationKey: ["evaluation"] });
+  const { evaluation } = useCurrent();
+  const text = evaluation ? evaluation.text : "";
+  const { score, motivation, feedback } = parseEvaluation(text);
 
   let content: ReactNode;
 

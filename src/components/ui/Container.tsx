@@ -1,4 +1,4 @@
-import { PropsWithChildrenClassName } from "@/utils/types";
+import { PropsWithChildrenClassName } from "@/types/components";
 
 export default function Container({
   children,
