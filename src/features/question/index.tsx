@@ -2,14 +2,15 @@ import Card from "@/components/ui/CompoundCard";
 import Text from "@/components/ui/Text";
 import { motion } from "framer-motion";
 import { Mic } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useRecord } from "@/hooks/useRecord";
 import Container from "@/components/ui/Container";
+import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/Icon";
-import { useCurrent } from "@/hooks/useCurrent";
+import { useInterview } from "@/hooks/useInterview";
+import RecordButton from "./RecordButton";
 
 export default function Question() {
-  const { currentQuestion } = useCurrent();
+  const { currentQuestion } = useInterview();
   const {
     isRecording,
     handleStartRecording,
@@ -34,7 +35,7 @@ export default function Question() {
           </Text>
           <Container className="flex justify-between">
             <Text className="text-primary text-sm">
-              {'Appuyez sur "Démarrer" pour commencer l\'entretien.'}
+              {'Appuyez sur "Enregistrer" pour répondre à la question.'}
             </Text>
           </Container>
           <Container className="flex justify-center my-10">
@@ -64,22 +65,11 @@ export default function Question() {
               <Icon iconName="RotateCcw" />
               Réinitialiser
             </Button>
-            <Button
-              size="sm"
-              onClick={isRecording ? handleStopRecording : handleStartRecording}
-              className={`transition-all duration-300 ${
-                isRecording
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-green-500 hover:bg-green-600"
-              }`}
-            >
-              {isRecording ? (
-                <Icon iconName="Pause" />
-              ) : (
-                <Icon iconName="Play" />
-              )}
-              {isRecording ? "Arrêter" : "Démarrer"}
-            </Button>
+            <RecordButton
+              isRecording={isRecording}
+              handleStartRecording={handleStartRecording}
+              handleStopRecording={handleStopRecording}
+            />
             <Button
               size="sm"
               disabled={!audioUrl}

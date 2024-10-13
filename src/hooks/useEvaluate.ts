@@ -1,32 +1,38 @@
-import { evaluateResponse } from "@/services/EvalResponseService";
-import { createAnswerInput } from "@/utils/prompts";
+import {
+  ApiSuccessResponse,
+  evaluateResponse,
+} from "@/services/EvalResponseService";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { useCurrent } from "./useCurrent";
+import { useInterview } from "./useInterview";
 import { Evaluation } from "@/types/interview";
-import { saveEvaluation } from "@/slices/interviewSlice";
+import { saveEvaluation, updateScore } from "@/slices/interviewSlice";
+import { parseEvaluation } from "@/utils/helpers";
 
 export function useEvaluate() {
   const dispatch = useDispatch();
-  const { currentQuestion } = useCurrent();
+  const { currentQuestion } = useInterview();
 
-  const { mutate } = useMutation({
-    mutationFn: (userResponse: string) => {
-      const inputs = createAnswerInput(userResponse);
+  function handleSuccess(data: ApiSuccessResponse) {
+    if (data && "text" in data && currentQuestion) {
+      const evaluation: Evaluation = {
+        id: Date.now(),
+        questionId: currentQuestion.id,
+        text: data.text,
+      };
+      dispatch(saveEvaluation(evaluation));
+      const { score } = parseEvaluation(data.text);
+      dispatch(updateScore(parseInt(score)));
+    }
+  }
+
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationFn: (inputs: string) => {
       return evaluateResponse(inputs);
     },
     mutationKey: ["evaluation"],
-    onSuccess: (data) => {
-      if (data && "text" in data && currentQuestion) {
-        const evaluation: Evaluation = {
-          id: Date.now(),
-          questionId: currentQuestion.id,
-          text: data.text,
-        };
-        dispatch(saveEvaluation(evaluation));
-      }
-    },
+    onSuccess: handleSuccess,
   });
 
-  return { mutate };
+  return { mutate, isPending, isSuccess };
 }

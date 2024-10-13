@@ -2,7 +2,7 @@ import { requestApi } from "../requestApi";
 
 const BASE_URL = import.meta.env.VITE_HF_API_URL;
 
-type ApiSuccessResponse = { text: string };
+export type ApiSuccessResponse = { text: string };
 
 export async function evaluateResponse(
   inputs: string

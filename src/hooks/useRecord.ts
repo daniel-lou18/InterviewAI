@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { saveTranscription } from "@/slices/interviewSlice";
 import { Transcription } from "@/types/interview";
-import { useCurrent } from "./useCurrent";
+import { useInterview } from "./useInterview";
 
 export function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
@@ -13,7 +13,7 @@ export function useRecord() {
   const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const dispatch = useDispatch();
-  const { currentQuestion } = useCurrent();
+  const { currentQuestion } = useInterview();
 
   const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),

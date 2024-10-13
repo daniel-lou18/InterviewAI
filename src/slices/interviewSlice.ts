@@ -2,14 +2,23 @@ import { Evaluation, Transcription } from "@/types/interview";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type InterviewState = {
-  currentQuestionIndex: number;
+  currentQuestionId: string;
+  questionOrder: string[];
+  statusById: Record<
+    string,
+    { answered: boolean; transcribed: boolean; evaluated: boolean }
+  >;
   score: number;
   transcriptions: Record<number, Transcription>;
   evaluations: Record<number, Evaluation>;
 };
 
 const initialState: InterviewState = {
-  currentQuestionIndex: 0,
+  currentQuestionId: "",
+  questionOrder: [],
+  statusById: {
+    questionId: { answered: false, transcribed: false, evaluated: false },
+  },
   score: 0,
   transcriptions: {},
   evaluations: {},
@@ -25,15 +34,37 @@ const interviewSlice = createSlice({
     saveEvaluation(state, action: PayloadAction<Evaluation>) {
       state.evaluations[action.payload.questionId] = action.payload;
     },
-    nextQuestion(state) {
-      state.currentQuestionIndex += 1;
+    setCurrentQuestion(state, action: PayloadAction<string>) {
+      state.currentQuestionId = action.payload;
     },
-    prevQuestion(state) {
-      state.currentQuestionIndex -= 1;
+    updateScore(state, action: PayloadAction<number>) {
+      state.score += action.payload;
+    },
+    updateQuestions(state, action: PayloadAction<string[]>) {
+      const newStatusById: typeof state.statusById = {};
+
+      action.payload.forEach((questionId) => {
+        newStatusById[questionId] = state.statusById[questionId] || {
+          answered: false,
+          transcribed: false,
+          evaluated: false,
+        };
+      });
+
+      state.statusById = newStatusById;
+    },
+    setQuestionOrder(state, action: PayloadAction<string[]>) {
+      state.questionOrder = action.payload;
     },
   },
 });
 
-export const { saveTranscription, saveEvaluation, nextQuestion, prevQuestion } =
-  interviewSlice.actions;
+export const {
+  saveTranscription,
+  saveEvaluation,
+  updateScore,
+  setCurrentQuestion,
+  setQuestionOrder,
+  updateQuestions,
+} = interviewSlice.actions;
 export default interviewSlice.reducer;
