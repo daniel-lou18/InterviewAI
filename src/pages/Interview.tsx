@@ -18,26 +18,6 @@ const Interview = () => {
         <Transcription />
         <Evaluation />
 
-        {/* <AnimatePresence>
-        {feedback && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Card className="mb-6 shadow-lg">
-              <CardHeader className="bg-green-700 text-white">
-                <h2 className="text-xl font-semibold">Feedback</h2>
-              </CardHeader>
-              <CardContent className="p-4">
-                <p className="text-lg">{feedback}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence> */}
-
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

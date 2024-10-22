@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import LoaderWrapper from "@/components/ui/LoaderWrapper";
 import { useRecord } from "@/hooks/useRecord";
 import { useIsMutating } from "@tanstack/react-query";
-import LoadingButtonContent from "./LoadingButtonContent";
+import LoadingButtonContent from "../../ui/LoadingButtonContent";
 import RecordButtonContent from "./RecordButtonContent";
 import PauseButtonContent from "./PauseButtonContent";
 

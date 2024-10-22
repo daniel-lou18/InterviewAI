@@ -13,7 +13,7 @@ import EvaluateButton from "./EvaluateButton";
 
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { mutate, isPending, isSuccess } = useEvaluate();
+  const { mutate, isPending } = useEvaluate();
   const { transcription, currentQuestion } = useInterview();
   const text = transcription ? transcription.text : "";
 
@@ -51,7 +51,7 @@ export default function Transcription() {
               <Icon iconName="Pen" />
               Éditer
             </Button>
-            <EvaluateButton isPending={isPending} isSuccess={isSuccess} />
+            <EvaluateButton isPending={isPending} />
           </Card.Footer>
         </Card>
       </form>

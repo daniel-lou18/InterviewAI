@@ -1,42 +1,29 @@
 import { Button } from "@/components/ui/button";
-import Icon from "@/components/ui/Icon";
-import Loader from "@/components/ui/Loader";
+import LoaderWrapper from "@/components/ui/LoaderWrapper";
+import LoadingButtonContent from "@/components/ui/LoadingButtonContent";
 import { useInterview } from "@/hooks/useInterview";
+import CheckedButtonContent from "./CheckedButtonContent";
+import EvaluateButtonContent from "./EvaluateButtonContent";
 
-type EvaluateButtonProps = { isPending: boolean; isSuccess: boolean };
+type EvaluateButtonProps = { isPending: boolean };
 
-export default function EvaluateButton({
-  isPending,
-  isSuccess,
-}: EvaluateButtonProps) {
-  const { transcription } = useInterview();
+export default function EvaluateButton({ isPending }: EvaluateButtonProps) {
+  const { transcription, evaluation } = useInterview();
   const text = transcription ? transcription.text : "";
 
   return (
     <Button
       type="submit"
       size="sm"
-      disabled={!text || (!isPending && isSuccess)}
+      disabled={!text || (!isPending && !!evaluation)}
       className=" bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
     >
-      {isPending && (
-        <>
-          <Loader size="sm" />
-          En cours
-        </>
-      )}
-      {!isPending && !isSuccess && (
-        <>
-          <Icon iconName="ClipboardPaste" />
-          Évaluer
-        </>
-      )}
-      {!isPending && isSuccess && (
-        <>
-          <Icon iconName="Check" />
-          Évalué
-        </>
-      )}
+      <LoaderWrapper
+        isLoading={isPending}
+        LoadingIndicator={LoadingButtonContent}
+      >
+        {evaluation ? <CheckedButtonContent /> : <EvaluateButtonContent />}
+      </LoaderWrapper>
     </Button>
   );
 }
