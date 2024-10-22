@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
-import Icon from "@/components/ui/Icon";
-import Loader from "@/components/ui/Loader";
+import LoaderWrapper from "@/components/ui/LoaderWrapper";
 import { useRecord } from "@/hooks/useRecord";
 import { useIsMutating } from "@tanstack/react-query";
+import LoadingButtonContent from "./LoadingButtonContent";
+import RecordButtonContent from "./RecordButtonContent";
+import PauseButtonContent from "./PauseButtonContent";
 
 type RecordButtonProps = Pick<
   ReturnType<typeof useRecord>,
@@ -27,13 +29,12 @@ export default function RecordButton({
           : "bg-green-500 hover:bg-green-600"
       }`}
     >
-      {!!isLoading && <Loader size="sm" />}
-      {!isLoading && isRecording ? (
-        <Icon iconName="Pause" />
-      ) : (
-        <Icon iconName="CircleDot" />
-      )}
-      {!isLoading && isRecording ? "Arrêter" : "Enregistrer"}
+      <LoaderWrapper
+        isLoading={!!isLoading}
+        LoadingIndicator={LoadingButtonContent}
+      >
+        {isRecording ? <PauseButtonContent /> : <RecordButtonContent />}
+      </LoaderWrapper>
     </Button>
   );
 }

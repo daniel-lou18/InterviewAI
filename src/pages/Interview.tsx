@@ -1,18 +1,18 @@
 import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import Transcription from "../features/transcribe";
+import Transcription from "../components/features/transcribe";
 import PageTitle from "../components/ui/PageTitle";
-import Question from "../features/question";
+import Question from "../components/features/question";
 import Container from "../components/ui/Container";
-import Evaluation from "@/features/evaluate";
-import ProgressBar from "@/components/ui/ProgressBar";
+import Evaluation from "@/components/features/evaluate";
+import ProgressBar from "@/components/features/question/ProgressBar";
 
 const Interview = () => {
   return (
     <Container className="w-screen min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
       <Container className="container mx-auto px-4 py-8 min-h-screen lg:grid grid-cols-2 lg:max-w-[1024px] gap-x-6">
-        <PageTitle>InterviewAI 🤖</PageTitle>
+        <PageTitle>Interview AI 🤖</PageTitle>
         <ProgressBar />
         <Question />
         <Transcription />

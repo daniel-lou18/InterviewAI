@@ -1,8 +1,8 @@
-import { Button } from "./button";
-import Container from "./Container";
-import Icon from "./Icon";
-import { Progress } from "./progress";
-import Text from "./Text";
+import { Button } from "../../ui/button";
+import Container from "../../ui/Container";
+import Icon from "../../ui/Icon";
+import { Progress } from "../../ui/progress";
+import Text from "../../ui/Text";
 import { useInterview } from "@/hooks/useInterview";
 import { useAnalytics } from "@/hooks/useAnalytics";
 
