@@ -20,6 +20,7 @@ body {
   justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(to bottom right, #f3e8ff, #dbeafe);
 }
 
 @layer base {
