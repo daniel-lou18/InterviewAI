@@ -60,7 +60,7 @@ export default function Question() {
           <Container className="flex items-center justify-between">
             <Button
               size="sm"
-              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+              className="hidden md:inline-flex bg-blue-500 hover:bg-blue-600 transition-all duration-300"
             >
               <Icon iconName="RotateCcw" />
               Réinitialiser

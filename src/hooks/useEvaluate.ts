@@ -13,6 +13,14 @@ export function useEvaluate() {
   const dispatch = useDispatch();
   const { currentQuestion } = useInterview();
 
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationFn: (inputs: string) => {
+      return evaluateResponse(inputs);
+    },
+    mutationKey: ["evaluation"],
+    onSuccess: handleSuccess,
+  });
+
   function handleSuccess(data: ApiSuccessResponse) {
     if (data && "text" in data && currentQuestion) {
       const evaluation: Evaluation = {
@@ -25,14 +33,6 @@ export function useEvaluate() {
       dispatch(updateScore(parseInt(score)));
     }
   }
-
-  const { mutate, isPending, isSuccess } = useMutation({
-    mutationFn: (inputs: string) => {
-      return evaluateResponse(inputs);
-    },
-    mutationKey: ["evaluation"],
-    onSuccess: handleSuccess,
-  });
 
   return { mutate, isPending, isSuccess };
 }

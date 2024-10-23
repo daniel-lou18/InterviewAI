@@ -1,6 +1,4 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import Card from "@/components/ui/CompoundCard";
@@ -10,6 +8,7 @@ import { useInterview } from "@/hooks/useInterview";
 import { createAnswerInput } from "@/utils/prompts";
 import TranscriptionContent from "./TranscriptionContent";
 import EvaluateButton from "./EvaluateButton";
+import ExpandButton from "@/components/ui/ExpandButton";
 
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,12 +31,18 @@ export default function Transcription() {
     >
       <form onSubmit={handleSubmitTranscription}>
         <Card>
-          <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center">
-            <h2 className="text-lg font-semibold">Texte transcrit</h2>
-            <button onClick={() => setIsExpanded(!isExpanded)}>
-              {isExpanded ? <ChevronUp /> : <ChevronDown />}
-            </button>
-          </CardHeader>
+          <Card.Header
+            className="bg-blue-500 text-white flex flex-row justify-between items-center"
+            actions={
+              <ExpandButton
+                disabled={!text}
+                onClick={() => setIsExpanded(!isExpanded)}
+                isExpanded={isExpanded}
+              />
+            }
+          >
+            Texte transcrit
+          </Card.Header>
           <Card.Content className="pt-6">
             <TranscriptionContent isExpanded={isExpanded} />
           </Card.Content>

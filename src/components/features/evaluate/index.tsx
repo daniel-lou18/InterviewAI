@@ -1,5 +1,3 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
-import { CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -7,9 +5,10 @@ import Card from "@/components/ui/CompoundCard";
 import Icon from "@/components/ui/Icon";
 import { useInterview } from "@/hooks/useInterview";
 import EvaluationContent from "./EvaluationContent";
+import ExpandButton from "@/components/ui/ExpandButton";
 
 export default function Evaluation() {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { evaluation } = useInterview();
   const text = evaluation ? evaluation.text : "";
 
@@ -20,12 +19,18 @@ export default function Evaluation() {
       transition={{ duration: 0.5, delay: 0.4 }}
     >
       <Card>
-        <CardHeader className="bg-blue-500 text-white flex flex-row justify-between items-center">
-          <h2 className="text-lg font-semibold">Évaluation</h2>
-          <button onClick={() => setIsExpanded(!isExpanded)}>
-            {isExpanded ? <ChevronUp /> : <ChevronDown />}
-          </button>
-        </CardHeader>
+        <Card.Header
+          className="bg-blue-500 text-white flex flex-row justify-between items-center"
+          actions={
+            <ExpandButton
+              disabled={!text}
+              onClick={() => setIsExpanded(!isExpanded)}
+              isExpanded={isExpanded}
+            />
+          }
+        >
+          Évaluation
+        </Card.Header>
         <Card.Content className="pt-6">
           <EvaluationContent isExpanded={isExpanded} />
         </Card.Content>
