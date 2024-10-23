@@ -21,11 +21,11 @@ export default function Question() {
   } = useRecord();
 
   return (
-    <CardTransition cardKey={currentQuestionId}>
+    <CardTransition cardKey={currentQuestionId} className="col-span-2">
       <Card>
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">
-          <Text className="text-xl font-bold">
+          <Text className="md:text-xl font-bold">
             {currentQuestion?.question ||
               "Erreur lors de la récupération des questions"}
           </Text>
