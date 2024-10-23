@@ -5,28 +5,22 @@ import { Key, PropsWithChildren } from "react";
 
 type CardTransitionProps = PropsWithChildren<{
   cardKey: Key;
-  delay?: number;
   className?: string;
 }>;
 
 const cardVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 100 : -100,
     opacity: 0,
+    x: direction > 0 ? 100 : -100,
   }),
   center: {
     x: 0,
     opacity: 1,
   },
-  exit: (direction: number) => ({
-    x: direction < 0 ? 100 : -100,
-    opacity: 0,
-  }),
 };
 
 export default function CardTransition({
   children,
-  delay = 0,
   cardKey,
   className,
 }: CardTransitionProps) {
@@ -40,11 +34,9 @@ export default function CardTransition({
         custom={direction}
         initial="enter"
         animate="center"
-        exit="exit"
         transition={{
-          duration: 0.2,
-          delay,
-          ease: "easeInOut",
+          x: { duration: 0.3, delay: 0.05 },
+          opacity: { duration: 0.2 },
         }}
         className={cn(className)}
       >

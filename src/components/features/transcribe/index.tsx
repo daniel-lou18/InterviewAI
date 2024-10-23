@@ -24,7 +24,7 @@ export default function Transcription() {
   }
 
   return (
-    <CardTransition cardKey={currentQuestionId} delay={0.1}>
+    <CardTransition cardKey={currentQuestionId}>
       <form onSubmit={handleSubmitTranscription}>
         <Card>
           <Card.Header

@@ -13,7 +13,7 @@ export default function Evaluation() {
   const text = evaluation ? evaluation.text : "";
 
   return (
-    <CardTransition cardKey={currentQuestionId} delay={0.2}>
+    <CardTransition cardKey={currentQuestionId}>
       <Card>
         <Card.Header
           className="bg-blue-500 text-white flex flex-row justify-between items-center"
