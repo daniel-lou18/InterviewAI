@@ -11,6 +11,7 @@ type InterviewState = {
   score: number;
   transcriptions: Record<number, Transcription>;
   evaluations: Record<number, Evaluation>;
+  direction: 1 | -1;
 };
 
 const initialState: InterviewState = {
@@ -22,6 +23,7 @@ const initialState: InterviewState = {
   score: 0,
   transcriptions: {},
   evaluations: {},
+  direction: 1,
 };
 
 const interviewSlice = createSlice({
@@ -56,6 +58,9 @@ const interviewSlice = createSlice({
     setQuestionOrder(state, action: PayloadAction<string[]>) {
       state.questionOrder = action.payload;
     },
+    setDirection(state, action: PayloadAction<1 | -1>) {
+      state.direction = action.payload;
+    },
   },
 });
 
@@ -66,5 +71,6 @@ export const {
   setCurrentQuestion,
   setQuestionOrder,
   updateQuestions,
+  setDirection,
 } = interviewSlice.actions;
 export default interviewSlice.reducer;

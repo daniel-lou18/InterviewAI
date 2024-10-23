@@ -6,12 +6,14 @@ import {
   updateQuestions,
   setCurrentQuestion,
   setQuestionOrder,
+  setDirection,
 } from "@/slices/interviewSlice";
 
 export function useInterview() {
   const interview = useSelector((state: RootState) => state.interview);
   const dispatch = useDispatch();
-  const { currentQuestionId, transcriptions, evaluations } = interview;
+  const { currentQuestionId, transcriptions, evaluations, direction } =
+    interview;
   const { questions, isLoading, error } = useQuestions();
   const currentQuestion = questions?.find(
     (question) => question.id.toString() === currentQuestionId
@@ -37,12 +39,14 @@ export function useInterview() {
   const evaluation = currentQuestion ? evaluations[currentQuestion.id] : null;
 
   function toNextQuestion() {
+    dispatch(setDirection(1));
     dispatch(
       setCurrentQuestion(interview.questionOrder[currentQuestionIndex + 1])
     );
   }
 
   function toPrevQuestion() {
+    dispatch(setDirection(-1));
     dispatch(
       setCurrentQuestion(interview.questionOrder[currentQuestionIndex - 1])
     );
@@ -58,5 +62,6 @@ export function useInterview() {
     evaluation,
     toNextQuestion,
     toPrevQuestion,
+    direction,
   };
 }
