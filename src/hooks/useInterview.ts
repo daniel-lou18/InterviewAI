@@ -16,7 +16,6 @@ export function useInterview() {
   const currentQuestion = questions?.find(
     (question) => question.id.toString() === currentQuestionId
   );
-
   const currentQuestionIndex =
     interview.questionOrder.indexOf(currentQuestionId);
 

@@ -9,11 +9,11 @@ import CardTransition from "@/components/ui/framer/CardTransition";
 
 export default function Evaluation() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { evaluation } = useInterview();
+  const { evaluation, currentQuestionId } = useInterview();
   const text = evaluation ? evaluation.text : "";
 
   return (
-    <CardTransition>
+    <CardTransition cardKey={currentQuestionId}>
       <Card>
         <Card.Header
           className="bg-blue-500 text-white flex flex-row justify-between items-center"

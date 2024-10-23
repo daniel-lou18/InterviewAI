@@ -11,7 +11,7 @@ import CardTransition from "@/components/ui/framer/CardTransition";
 import MicAnimation from "@/components/ui/framer/MicAnimation";
 
 export default function Question() {
-  const { currentQuestion } = useInterview();
+  const { currentQuestion, currentQuestionId } = useInterview();
   const {
     isRecording,
     handleStartRecording,
@@ -21,7 +21,7 @@ export default function Question() {
   } = useRecord();
 
   return (
-    <CardTransition>
+    <CardTransition cardKey={currentQuestionId}>
       <Card>
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">

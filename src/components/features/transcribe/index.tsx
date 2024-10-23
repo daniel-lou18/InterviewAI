@@ -13,7 +13,7 @@ import CardTransition from "@/components/ui/framer/CardTransition";
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
   const { mutate, isPending } = useEvaluate();
-  const { transcription, currentQuestion } = useInterview();
+  const { transcription, currentQuestion, currentQuestionId } = useInterview();
   const text = transcription ? transcription.text : "";
 
   function handleSubmitTranscription(e: FormEvent<HTMLFormElement>) {
@@ -24,7 +24,7 @@ export default function Transcription() {
   }
 
   return (
-    <CardTransition>
+    <CardTransition cardKey={currentQuestionId}>
       <form onSubmit={handleSubmitTranscription}>
         <Card>
           <Card.Header
