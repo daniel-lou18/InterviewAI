@@ -1,6 +1,5 @@
 import Card from "@/components/ui/CompoundCard";
 import Text from "@/components/ui/Text";
-import { motion } from "framer-motion";
 import { Mic } from "lucide-react";
 import { useRecord } from "@/hooks/useRecord";
 import Container from "@/components/ui/Container";
@@ -8,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/Icon";
 import { useInterview } from "@/hooks/useInterview";
 import RecordButton from "./RecordButton";
+import CardTransition from "@/components/ui/framer/CardTransition";
+import MicAnimation from "@/components/ui/framer/MicAnimation";
 
 export default function Question() {
   const { currentQuestion } = useInterview();
@@ -20,12 +21,7 @@ export default function Question() {
   } = useRecord();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="col-span-2"
-    >
+    <CardTransition>
       <Card>
         <Card.Header className="bg-purple-700">Question</Card.Header>
         <Card.Content className="p-4">
@@ -39,23 +35,13 @@ export default function Question() {
             </Text>
           </Container>
           <Container className="flex justify-center my-10">
-            <motion.div
-              animate={{
-                scale: isRecording ? [1, 1.2, 1] : 1,
-                opacity: isRecording ? 1 : 0.5,
-              }}
-              transition={{
-                duration: 1,
-                repeat: isRecording ? Infinity : 0,
-                repeatType: "loop",
-              }}
-            >
+            <MicAnimation isRecording={isRecording}>
               <Mic
                 className={`h-12 w-12 ${
                   isRecording ? "text-red-500" : "text-gray-400"
                 }`}
               />
-            </motion.div>
+            </MicAnimation>
           </Container>
           <Container className="flex items-center justify-between">
             <Button
@@ -82,6 +68,6 @@ export default function Question() {
           </Container>
         </Card.Content>
       </Card>
-    </motion.div>
+    </CardTransition>
   );
 }

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { FormEvent, useState } from "react";
 import Card from "@/components/ui/CompoundCard";
 import { useEvaluate } from "@/hooks/useEvaluate";
@@ -9,6 +8,7 @@ import { createAnswerInput } from "@/utils/prompts";
 import TranscriptionContent from "./TranscriptionContent";
 import EvaluateButton from "./EvaluateButton";
 import ExpandButton from "@/components/ui/ExpandButton";
+import CardTransition from "@/components/ui/framer/CardTransition";
 
 export default function Transcription() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -24,11 +24,7 @@ export default function Transcription() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-    >
+    <CardTransition>
       <form onSubmit={handleSubmitTranscription}>
         <Card>
           <Card.Header
@@ -60,6 +56,6 @@ export default function Transcription() {
           </Card.Footer>
         </Card>
       </form>
-    </motion.div>
+    </CardTransition>
   );
 }

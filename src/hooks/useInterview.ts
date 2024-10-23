@@ -13,25 +13,29 @@ export function useInterview() {
   const dispatch = useDispatch();
   const { currentQuestionId, transcriptions, evaluations } = interview;
   const { questions, isLoading, error } = useQuestions();
+  const currentQuestion = questions?.find(
+    (question) => question.id.toString() === currentQuestionId
+  );
+
+  const currentQuestionIndex =
+    interview.questionOrder.indexOf(currentQuestionId);
 
   useEffect(() => {
     if (questions?.length) {
       dispatch(updateQuestions(questions.map((q) => q.id.toString())));
       dispatch(setQuestionOrder(questions.map((q) => q.id.toString())));
-      dispatch(setCurrentQuestion(questions[0].id.toString()));
+      dispatch(
+        setCurrentQuestion(
+          currentQuestionId ? currentQuestionId : questions[0].id.toString()
+        )
+      );
     }
-  }, [questions, dispatch]);
+  }, [questions, dispatch, currentQuestionId]);
 
-  const currentQuestion = questions?.find(
-    (question) => question.id.toString() === currentQuestionId
-  );
   const transcription = currentQuestion
     ? transcriptions[currentQuestion.id]
     : null;
   const evaluation = currentQuestion ? evaluations[currentQuestion.id] : null;
-
-  const currentQuestionIndex =
-    interview.questionOrder.indexOf(currentQuestionId);
 
   function toNextQuestion() {
     dispatch(

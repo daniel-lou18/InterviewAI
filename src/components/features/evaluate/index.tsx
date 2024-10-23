@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/CompoundCard";
@@ -6,6 +5,7 @@ import Icon from "@/components/ui/Icon";
 import { useInterview } from "@/hooks/useInterview";
 import EvaluationContent from "./EvaluationContent";
 import ExpandButton from "@/components/ui/ExpandButton";
+import CardTransition from "@/components/ui/framer/CardTransition";
 
 export default function Evaluation() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -13,11 +13,7 @@ export default function Evaluation() {
   const text = evaluation ? evaluation.text : "";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-    >
+    <CardTransition>
       <Card>
         <Card.Header
           className="bg-blue-500 text-white flex flex-row justify-between items-center"
@@ -43,16 +39,8 @@ export default function Evaluation() {
             <Icon iconName="RotateCw" />
             Réévaluer
           </Button>
-          {/* <Button
-            size="sm"
-            disabled={!text}
-            className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300"
-          >
-            <Icon iconName="ArrowBigRight" />
-            Suivant
-          </Button> */}
         </Card.Footer>
       </Card>
-    </motion.div>
+    </CardTransition>
   );
 }
