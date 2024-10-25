@@ -11,7 +11,8 @@ import CardTransition from "@/components/ui/framer/CardTransition";
 import MicAnimation from "@/components/ui/framer/MicAnimation";
 
 export default function Question() {
-  const { currentQuestion, currentQuestionId } = useInterview();
+  const { currentQuestion, currentQuestionId, currentQuestionIndex } =
+    useInterview();
   const {
     isRecording,
     handleStartRecording,
@@ -23,7 +24,9 @@ export default function Question() {
   return (
     <CardTransition cardKey={currentQuestionId} className="col-span-2">
       <Card>
-        <Card.Header className="bg-purple-700">Question</Card.Header>
+        <Card.Header className="bg-purple-700">
+          Question {currentQuestionIndex + 1}
+        </Card.Header>
         <Card.Content className="p-4">
           <Text className="md:text-xl font-bold">
             {currentQuestion?.question ||
