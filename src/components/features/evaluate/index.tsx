@@ -6,14 +6,22 @@ import { useInterview } from "@/hooks/useInterview";
 import EvaluationContent from "./EvaluationContent";
 import ExpandButton from "@/components/ui/ExpandButton";
 import CardTransition from "@/components/ui/framer/CardTransition";
+import { LayoutTable, View } from "@/types/components";
+import { ViewOptions } from "@/components/ui/viewSwitcher";
 
-export default function Evaluation() {
+const layoutClasses: LayoutTable<ViewOptions> = {
+  vertical: "col-span-1",
+  horizontal: "col-span-1",
+  stacked: "col-span-2",
+};
+
+export default function Evaluation({ view }: View) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { evaluation, currentQuestionId } = useInterview();
   const text = evaluation ? evaluation.text : "";
 
   return (
-    <CardTransition cardKey={currentQuestionId}>
+    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
       <Card>
         <Card.Header
           className="bg-blue-500 text-white flex flex-row justify-between items-center"

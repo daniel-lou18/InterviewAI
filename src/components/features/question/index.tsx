@@ -9,8 +9,16 @@ import { useInterview } from "@/hooks/useInterview";
 import RecordButton from "./RecordButton";
 import CardTransition from "@/components/ui/framer/CardTransition";
 import MicAnimation from "@/components/ui/framer/MicAnimation";
+import { LayoutTable, View } from "@/types/components";
+import { ViewOptions } from "@/components/ui/viewSwitcher";
 
-export default function Question() {
+const layoutClasses: LayoutTable<ViewOptions> = {
+  vertical: "col-span-2",
+  horizontal: "col-span-1 row-span-2",
+  stacked: "col-span-2",
+};
+
+export default function Question({ view }: View) {
   const { currentQuestion, currentQuestionId, currentQuestionIndex } =
     useInterview();
   const {
@@ -22,8 +30,8 @@ export default function Question() {
   } = useRecord();
 
   return (
-    <CardTransition cardKey={currentQuestionId} className="col-span-2">
-      <Card>
+    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
+      <Card className="mb-10">
         <Card.Header className="bg-purple-700">
           Question {currentQuestionIndex + 1}
         </Card.Header>

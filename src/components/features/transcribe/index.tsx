@@ -9,8 +9,16 @@ import TranscriptionContent from "./TranscriptionContent";
 import EvaluateButton from "./EvaluateButton";
 import ExpandButton from "@/components/ui/ExpandButton";
 import CardTransition from "@/components/ui/framer/CardTransition";
+import { LayoutTable, View } from "@/types/components";
+import { ViewOptions } from "@/components/ui/viewSwitcher";
 
-export default function Transcription() {
+const layoutClasses: LayoutTable<ViewOptions> = {
+  vertical: "col-span-1",
+  horizontal: "col-span-1",
+  stacked: "col-span-2",
+};
+
+export default function Transcription({ view }: View) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { mutate, isPending } = useEvaluate();
   const { transcription, currentQuestion, currentQuestionId } = useInterview();
@@ -24,7 +32,7 @@ export default function Transcription() {
   }
 
   return (
-    <CardTransition cardKey={currentQuestionId}>
+    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
       <form onSubmit={handleSubmitTranscription}>
         <Card>
           <Card.Header
