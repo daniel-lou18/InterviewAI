@@ -14,7 +14,7 @@ export default function ViewSwitcher({
   handleViewChange,
 }: ViewSwitcherProps) {
   return (
-    <Container className="fixed top-4 right-4 bg-white rounded-lg shadow-lg p-1 flex gap-1">
+    <Container className="hidden lg:flex fixed top-4 right-4 bg-white rounded-lg shadow-lg p-1 gap-1">
       <Button
         variant="ghost"
         size="icon"
