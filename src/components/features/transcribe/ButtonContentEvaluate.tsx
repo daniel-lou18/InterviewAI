@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/Icon";
 
-export default function EvaluateButtonContent() {
+export default function ButtonContentEvaluate() {
   return (
     <>
       <Icon iconName="ClipboardPaste" />

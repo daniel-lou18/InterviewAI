@@ -1,26 +1,26 @@
-import { useInterview } from "@/hooks/useInterview";
 import { ViewOptions } from "@/slices/layoutSlice";
 import { LayoutTable } from "@/types/components";
 import { motion, AnimatePresence } from "framer-motion";
 import { Key, PropsWithChildren } from "react";
 
+type Direction = 1 | -1;
+
 type CardTransitionProps = PropsWithChildren<{
-  view: ViewOptions;
   cardKey: Key;
-  className?: string;
+  view: ViewOptions;
   layoutClasses: LayoutTable<ViewOptions>;
+  direction: Direction;
 }>;
 
-const GridCardTransition = ({
-  view,
+export default function GridCardTransition({
   children,
-  layoutClasses,
   cardKey,
-}: CardTransitionProps) => {
-  const { direction } = useInterview();
-
+  view,
+  layoutClasses,
+  direction,
+}: CardTransitionProps) {
   const directionVariants = {
-    enter: (direction: number) => ({
+    enter: (direction: Direction) => ({
       x: direction > 0 ? 100 : -100,
       opacity: 0,
     }),
@@ -32,7 +32,7 @@ const GridCardTransition = ({
         opacity: { duration: 0.2 },
       },
     },
-    exit: (direction: number) => ({
+    exit: (direction: Direction) => ({
       x: direction < 0 ? 100 : -100,
       opacity: 0,
       transition: {
@@ -58,6 +58,4 @@ const GridCardTransition = ({
       </motion.div>
     </AnimatePresence>
   );
-};
-
-export default GridCardTransition;
+}

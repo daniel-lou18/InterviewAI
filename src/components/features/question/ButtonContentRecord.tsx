@@ -1,6 +1,6 @@
 import Icon from "@/components/ui/Icon";
 
-export default function RecordButtonContent() {
+export default function ButtonContentRecord() {
   return (
     <>
       <Icon iconName="CircleDot" />

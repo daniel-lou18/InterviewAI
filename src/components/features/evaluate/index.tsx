@@ -17,7 +17,7 @@ const layoutClasses: LayoutTable<ViewOptions> = {
 
 export default function Evaluation({ view }: View) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { evaluation, currentQuestionId } = useInterview();
+  const { evaluation, currentQuestionId, direction } = useInterview();
   const text = evaluation ? evaluation.text : "";
 
   return (
@@ -25,6 +25,7 @@ export default function Evaluation({ view }: View) {
       view={view}
       cardKey={`${currentQuestionId}`}
       layoutClasses={layoutClasses}
+      direction={direction}
     >
       <Card>
         <Card.Header

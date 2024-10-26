@@ -19,8 +19,13 @@ const layoutClasses: LayoutTable<ViewOptions> = {
 };
 
 export default function Question({ view }: View) {
-  const { currentQuestion, currentQuestionId, currentQuestionIndex } =
-    useInterview();
+  const {
+    currentQuestion,
+    currentQuestionId,
+    currentQuestionIndex,
+    direction,
+    transcription,
+  } = useInterview();
   const {
     isRecording,
     handleStartRecording,
@@ -34,6 +39,7 @@ export default function Question({ view }: View) {
       view={view}
       cardKey={`${currentQuestionId}`}
       layoutClasses={layoutClasses}
+      direction={direction}
     >
       <Card>
         <Card.Header className="bg-purple-700">
@@ -70,6 +76,7 @@ export default function Question({ view }: View) {
               isRecording={isRecording}
               handleStartRecording={handleStartRecording}
               handleStopRecording={handleStopRecording}
+              transcription={transcription}
             />
             <Button
               size="sm"

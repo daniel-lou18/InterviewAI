@@ -21,7 +21,13 @@ const layoutClasses: LayoutTable<ViewOptions> = {
 export default function Transcription({ view }: View) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { mutate, isPending } = useEvaluate();
-  const { transcription, currentQuestion, currentQuestionId } = useInterview();
+  const {
+    transcription,
+    evaluation,
+    currentQuestion,
+    currentQuestionId,
+    direction,
+  } = useInterview();
   const text = transcription ? transcription.text : "";
 
   function handleSubmitTranscription(e: FormEvent<HTMLFormElement>) {
@@ -36,6 +42,7 @@ export default function Transcription({ view }: View) {
       view={view}
       cardKey={`${currentQuestionId}`}
       layoutClasses={layoutClasses}
+      direction={direction}
     >
       <form onSubmit={handleSubmitTranscription}>
         <Card>
@@ -64,7 +71,11 @@ export default function Transcription({ view }: View) {
               <Icon iconName="Pen" />
               Éditer
             </Button>
-            <EvaluateButton isPending={isPending} />
+            <EvaluateButton
+              isPending={isPending}
+              transcription={transcription}
+              evaluation={evaluation}
+            />
           </Card.Footer>
         </Card>
       </form>
