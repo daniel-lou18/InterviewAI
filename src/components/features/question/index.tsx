@@ -10,7 +10,7 @@ import RecordButton from "./RecordButton";
 import CardTransition from "@/components/ui/framer/CardTransition";
 import MicAnimation from "@/components/ui/framer/MicAnimation";
 import { LayoutTable, View } from "@/types/components";
-import { ViewOptions } from "@/components/ui/viewSwitcher";
+import { ViewOptions } from "@/slices/layoutSlice";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-2",

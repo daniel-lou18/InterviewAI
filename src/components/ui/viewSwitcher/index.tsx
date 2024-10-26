@@ -1,12 +1,11 @@
+import { ViewOptions } from "@/slices/layoutSlice";
 import { Button } from "../button";
 import Container from "../Container";
 import Icon from "../Icon";
 
-export type ViewOptions = "vertical" | "horizontal" | "stacked";
-
 type ViewSwitcherProps = {
   currentView: ViewOptions;
-  handleViewChange: (newView: string) => void;
+  handleViewChange: (newView: ViewOptions) => void;
 };
 
 export default function ViewSwitcher({

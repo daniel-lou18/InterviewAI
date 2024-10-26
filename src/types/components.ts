@@ -1,4 +1,4 @@
-import { ViewOptions } from "@/components/ui/viewSwitcher";
+import { ViewOptions } from "@/slices/layoutSlice";
 import { PropsWithChildren } from "react";
 
 export type PropsWithChildrenClassName = PropsWithChildren<{

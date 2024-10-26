@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import interviewReducer from "../slices/interviewSlice";
+import layoutReducer from "../slices/layoutSlice";
 
 export const store = configureStore({
   reducer: {
     interview: interviewReducer,
+    layout: layoutReducer,
   },
 });
 

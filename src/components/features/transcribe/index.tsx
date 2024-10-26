@@ -10,7 +10,7 @@ import EvaluateButton from "./EvaluateButton";
 import ExpandButton from "@/components/ui/ExpandButton";
 import CardTransition from "@/components/ui/framer/CardTransition";
 import { LayoutTable, View } from "@/types/components";
-import { ViewOptions } from "@/components/ui/viewSwitcher";
+import { ViewOptions } from "@/slices/layoutSlice";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-1",
