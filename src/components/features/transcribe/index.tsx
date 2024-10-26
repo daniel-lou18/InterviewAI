@@ -8,9 +8,9 @@ import { createAnswerInput } from "@/utils/prompts";
 import TranscriptionContent from "./TranscriptionContent";
 import EvaluateButton from "./EvaluateButton";
 import ExpandButton from "@/components/ui/ExpandButton";
-import CardTransition from "@/components/ui/framer/CardTransition";
 import { LayoutTable, View } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
+import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-1",
@@ -32,7 +32,11 @@ export default function Transcription({ view }: View) {
   }
 
   return (
-    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
+    <GridCardTransition
+      view={view}
+      cardKey={`${currentQuestionId}`}
+      layoutClasses={layoutClasses}
+    >
       <form onSubmit={handleSubmitTranscription}>
         <Card>
           <Card.Header
@@ -64,6 +68,6 @@ export default function Transcription({ view }: View) {
           </Card.Footer>
         </Card>
       </form>
-    </CardTransition>
+    </GridCardTransition>
   );
 }

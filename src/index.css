@@ -21,6 +21,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background: linear-gradient(to bottom right, #f3e8ff, #dbeafe);
+  overflow-x: hidden;
 }
 
 @layer base {

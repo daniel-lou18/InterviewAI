@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/Icon";
 import { useInterview } from "@/hooks/useInterview";
 import RecordButton from "./RecordButton";
-import CardTransition from "@/components/ui/framer/CardTransition";
 import MicAnimation from "@/components/ui/framer/MicAnimation";
 import { LayoutTable, View } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
+import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-2",
@@ -30,7 +30,11 @@ export default function Question({ view }: View) {
   } = useRecord();
 
   return (
-    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
+    <GridCardTransition
+      view={view}
+      cardKey={`${currentQuestionId}`}
+      layoutClasses={layoutClasses}
+    >
       <Card className="mb-10">
         <Card.Header className="bg-purple-700">
           Question {currentQuestionIndex + 1}
@@ -79,6 +83,6 @@ export default function Question({ view }: View) {
           </Container>
         </Card.Content>
       </Card>
-    </CardTransition>
+    </GridCardTransition>
   );
 }

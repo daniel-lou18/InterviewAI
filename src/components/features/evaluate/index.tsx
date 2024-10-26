@@ -5,9 +5,9 @@ import Icon from "@/components/ui/Icon";
 import { useInterview } from "@/hooks/useInterview";
 import EvaluationContent from "./EvaluationContent";
 import ExpandButton from "@/components/ui/ExpandButton";
-import CardTransition from "@/components/ui/framer/CardTransition";
 import { LayoutTable, View } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
+import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-1",
@@ -21,7 +21,11 @@ export default function Evaluation({ view }: View) {
   const text = evaluation ? evaluation.text : "";
 
   return (
-    <CardTransition cardKey={currentQuestionId} className={layoutClasses[view]}>
+    <GridCardTransition
+      view={view}
+      cardKey={`${currentQuestionId}`}
+      layoutClasses={layoutClasses}
+    >
       <Card>
         <Card.Header
           className="bg-blue-500 text-white flex flex-row justify-between items-center"
@@ -49,6 +53,6 @@ export default function Evaluation({ view }: View) {
           </Button>
         </Card.Footer>
       </Card>
-    </CardTransition>
+    </GridCardTransition>
   );
 }
