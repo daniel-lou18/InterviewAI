@@ -14,7 +14,7 @@ import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-2",
-  horizontal: "col-span-1 row-span-2",
+  horizontal: "col-span-1 row-span-2 h-full",
   stacked: "col-span-2",
 };
 
@@ -35,7 +35,7 @@ export default function Question({ view }: View) {
       cardKey={`${currentQuestionId}`}
       layoutClasses={layoutClasses}
     >
-      <Card className="mb-10">
+      <Card>
         <Card.Header className="bg-purple-700">
           Question {currentQuestionIndex + 1}
         </Card.Header>
@@ -45,8 +45,8 @@ export default function Question({ view }: View) {
               "Erreur lors de la récupération des questions"}
           </Text>
           <Container className="flex justify-between">
-            <Text className="text-primary text-sm">
-              {'Appuyez sur "Enregistrer" pour répondre à la question.'}
+            <Text className="text-primary text-sm italic text-gray-500">
+              Appuyez sur "Enregistrer" pour répondre à la question
             </Text>
           </Container>
           <Container className="flex justify-center my-10">

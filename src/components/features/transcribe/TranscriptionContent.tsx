@@ -13,7 +13,7 @@ export default function TranscriptionContent({
 
   if (!text) {
     return (
-      <Text className="text-sm text-gray-500">
+      <Text className="text-sm italic text-gray-500">
         La transcription de votre réponse sera affichée ici
       </Text>
     );
@@ -21,7 +21,7 @@ export default function TranscriptionContent({
 
   return (
     <Text
-      className={`transition-all duration-300 ${
+      className={`text-sm transition-all duration-300 ${
         isExpanded ? "max-h-full" : "max-h-16 overflow-hidden"
       }`}
     >

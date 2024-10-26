@@ -13,7 +13,7 @@ export default function ProgressBar() {
     useAnalytics();
 
   return (
-    <Container className="lg:col-span-2 w-full flex justify-between items-center mb-6">
+    <Container className="lg:col-span-2 w-full flex justify-between items-center">
       <Button
         size="icon"
         disabled={currentQuestionIndex === 0}
@@ -23,7 +23,7 @@ export default function ProgressBar() {
         <Icon iconName="ArrowBigLeft" className="m-0 h-5 w-5" />
       </Button>
       <Container className="w-1/2">
-        <Progress className="w-full h-4 bg-purple-200" value={progress} />
+        <Progress className="w-full h-4 mb-2 bg-purple-200" value={progress} />
         <Container className="flex justify-between text-sm font-semibold">
           <Text className="mb-0">{`${
             currentQuestionIndex + 1

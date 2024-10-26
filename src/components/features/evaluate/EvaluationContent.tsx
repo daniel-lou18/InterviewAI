@@ -17,7 +17,7 @@ export default function EvaluationContent({
 
   if (!text) {
     return (
-      <Text className="text-sm text-gray-500">
+      <Text className="text-sm italic text-gray-500">
         L'évaluation de votre transcription sera affichée ici
       </Text>
     );
@@ -25,7 +25,7 @@ export default function EvaluationContent({
   {
     return (
       <Container
-        className={`transition-all duration-300 ${
+        className={`text-sm transition-all duration-300 ${
           isExpanded ? "max-h-full" : "max-h-16 overflow-hidden"
         }`}
       >

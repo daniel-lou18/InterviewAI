@@ -7,12 +7,26 @@ import ProgressBar from "@/components/features/question/ProgressBar";
 import ResetButton from "@/components/features/ResetButton";
 import ViewSwitcher from "@/components/ui/viewSwitcher";
 import { useLayout } from "@/hooks/useLayout";
+import { LayoutTable } from "@/types/components";
+import { ViewOptions } from "@/slices/layoutSlice";
+import { cn } from "@/lib/utils";
 
-const Interview = () => {
+export default function Interview() {
   const { view, updateView } = useLayout();
 
+  const layoutClasses: LayoutTable<ViewOptions> = {
+    vertical: "gap-x-4 gap-y-6",
+    horizontal: "gap-x-6 gap-y-4",
+    stacked: "gap-y-4",
+  };
+
   return (
-    <Container className="min-h-screen container mx-auto px-4 py-8 lg:grid grid-cols-2 lg:w-[960px] gap-x-6">
+    <Container
+      className={cn(
+        "container mx-auto px-4 py-8 lg:grid grid-cols-2 lg:w-[960px]",
+        layoutClasses[view]
+      )}
+    >
       <ViewSwitcher currentView={view} handleViewChange={updateView} />
       <PageTitle>Interview AI 🤖</PageTitle>
       <ProgressBar />
@@ -22,6 +36,4 @@ const Interview = () => {
       <ResetButton />
     </Container>
   );
-};
-
-export default Interview;
+}

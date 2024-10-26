@@ -8,7 +8,7 @@ type HeaderActions = { actions?: ReactNode };
 
 function CardContainer({ children, className }: PropsWithChildrenClassName) {
   return (
-    <Card className={cn("mb-6 shadow-lg overflow-hidden", className)}>
+    <Card className={cn("h-full shadow-lg overflow-hidden", className)}>
       {children}
     </Card>
   );
