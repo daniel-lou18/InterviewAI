@@ -58,7 +58,7 @@ export default function Transcription({ view }: View) {
           >
             Texte transcrit
           </Card.Header>
-          <Card.Content className="pt-6">
+          <Card.Content>
             <TranscriptionContent isExpanded={isExpanded} />
           </Card.Content>
           <Card.Footer className="justify-between">

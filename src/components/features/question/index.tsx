@@ -45,7 +45,7 @@ export default function Question({ view }: View) {
         <Card.Header className="bg-purple-700">
           Question {currentQuestionIndex + 1}
         </Card.Header>
-        <Card.Content className="p-4">
+        <Card.Content>
           <Text className="md:text-xl font-bold">
             {currentQuestion?.question ||
               "Erreur lors de la récupération des questions"}
@@ -64,31 +64,31 @@ export default function Question({ view }: View) {
               />
             </MicAnimation>
           </Container>
-          <Container className="flex items-center justify-between">
-            <Button
-              size="sm"
-              className="hidden md:inline-flex bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-            >
-              <Icon iconName="RotateCcw" />
-              Réinitialiser
-            </Button>
-            <RecordButton
-              isRecording={isRecording}
-              handleStartRecording={handleStartRecording}
-              handleStopRecording={handleStopRecording}
-              transcription={transcription}
-            />
-            <Button
-              size="sm"
-              disabled={!audioUrl}
-              onClick={handlePlayAudio}
-              className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-            >
-              <Icon iconName="Volume2" />
-              Écouter
-            </Button>
-          </Container>
         </Card.Content>
+        <Card.Footer className="">
+          <Button
+            size="sm"
+            className="hidden md:inline-flex bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+          >
+            <Icon iconName="RotateCcw" />
+            Réinitialiser
+          </Button>
+          <RecordButton
+            isRecording={isRecording}
+            handleStartRecording={handleStartRecording}
+            handleStopRecording={handleStopRecording}
+            transcription={transcription}
+          />
+          <Button
+            size="sm"
+            disabled={!audioUrl}
+            onClick={handlePlayAudio}
+            className="bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+          >
+            <Icon iconName="Volume2" />
+            Écouter
+          </Button>
+        </Card.Footer>
       </Card>
     </GridCardTransition>
   );

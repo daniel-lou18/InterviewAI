@@ -40,7 +40,7 @@ export default function Evaluation({ view }: View) {
         >
           Évaluation
         </Card.Header>
-        <Card.Content className="pt-6">
+        <Card.Content>
           <EvaluationContent isExpanded={isExpanded} />
         </Card.Content>
         <Card.Footer className="justify-start">

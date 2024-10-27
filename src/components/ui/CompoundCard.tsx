@@ -8,7 +8,12 @@ type HeaderActions = { actions?: ReactNode };
 
 function CardContainer({ children, className }: PropsWithChildrenClassName) {
   return (
-    <Card className={cn("h-full shadow-lg overflow-hidden", className)}>
+    <Card
+      className={cn(
+        "h-full shadow-lg overflow-hidden flex flex-col",
+        className
+      )}
+    >
       {children}
     </Card>
   );
@@ -32,11 +37,19 @@ function Header({
 }
 
 function Content({ children, className }: PropsWithChildrenClassName) {
-  return <CardContent className={className}>{children}</CardContent>;
+  return (
+    <CardContent className={cn("p-4 flex-1", className)}>
+      {children}
+    </CardContent>
+  );
 }
 
 function Footer({ children, className }: PropsWithChildrenClassName) {
-  return <CardFooter className={cn("flex", className)}>{children}</CardFooter>;
+  return (
+    <CardFooter className={cn("flex justify-between p-4", className)}>
+      {children}
+    </CardFooter>
+  );
 }
 
 CardContainer.Header = Header;
