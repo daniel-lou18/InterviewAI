@@ -12,13 +12,17 @@ import { LayoutTable, View } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
 import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
+type QuestionProps = {
+  startTimer: () => () => void;
+} & View;
+
 const layoutClasses: LayoutTable<ViewOptions> = {
   vertical: "col-span-2",
   horizontal: "col-span-1 row-span-2 h-full",
   stacked: "col-span-2",
 };
 
-export default function Question({ view }: View) {
+export default function Question({ view, startTimer }: QuestionProps) {
   const {
     currentQuestion,
     currentQuestionId,
@@ -33,6 +37,11 @@ export default function Question({ view }: View) {
     handlePlayAudio,
     audioUrl,
   } = useRecord();
+
+  function handleStart() {
+    handleStartRecording();
+    startTimer();
+  }
 
   return (
     <GridCardTransition

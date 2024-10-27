@@ -11,9 +11,11 @@ import { LayoutTable } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
 import { cn } from "@/lib/utils";
 import Timer from "@/components/ui/timer";
+import { useTimer } from "@/hooks/useTimer";
 
 export default function Interview() {
   const { view, updateView } = useLayout();
+  const { time, startTimer } = useTimer();
 
   const layoutClasses: LayoutTable<ViewOptions> = {
     vertical: "gap-x-4 gap-y-6",
@@ -29,10 +31,10 @@ export default function Interview() {
       )}
     >
       <ViewSwitcher currentView={view} handleViewChange={updateView} />
-      <Timer />
+      <Timer time={time} />
       <PageTitle>Interview AI 🤖</PageTitle>
       <ProgressBar />
-      <Question view={view} />
+      <Question view={view} startTimer={startTimer} />
       <Transcription view={view} />
       <Evaluation view={view} />
       <ResetButton />

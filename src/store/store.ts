@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import interviewReducer from "../slices/interviewSlice";
 import layoutReducer from "../slices/layoutSlice";
+import timerReducer from "../slices/timerSlice";
 
 export const store = configureStore({
   reducer: {
     interview: interviewReducer,
     layout: layoutReducer,
+    timer: timerReducer,
   },
 });
 
