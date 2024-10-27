@@ -15,7 +15,7 @@ import { useTimer } from "@/hooks/useTimer";
 
 export default function Interview() {
   const { view, updateView } = useLayout();
-  const { time, startTimer } = useTimer();
+  const { time, startTimer, stopTimer } = useTimer();
 
   const layoutClasses: LayoutTable<ViewOptions> = {
     vertical: "gap-x-4 gap-y-6",
@@ -34,7 +34,7 @@ export default function Interview() {
       <Timer time={time} />
       <PageTitle>Interview AI 🤖</PageTitle>
       <ProgressBar />
-      <Question view={view} startTimer={startTimer} />
+      <Question view={view} startTimer={startTimer} stopTimer={stopTimer} />
       <Transcription view={view} />
       <Evaluation view={view} />
       <ResetButton />

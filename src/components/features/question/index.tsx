@@ -14,6 +14,7 @@ import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 type QuestionProps = {
   startTimer: () => () => void;
+  stopTimer: () => void;
 } & View;
 
 const layoutClasses: LayoutTable<ViewOptions> = {
@@ -22,7 +23,11 @@ const layoutClasses: LayoutTable<ViewOptions> = {
   stacked: "col-span-2",
 };
 
-export default function Question({ view, startTimer }: QuestionProps) {
+export default function Question({
+  view,
+  startTimer,
+  stopTimer,
+}: QuestionProps) {
   const {
     currentQuestion,
     currentQuestionId,
@@ -39,8 +44,13 @@ export default function Question({ view, startTimer }: QuestionProps) {
   } = useRecord();
 
   function handleStart() {
-    handleStartRecording();
     startTimer();
+    handleStartRecording();
+  }
+
+  async function handleStop() {
+    stopTimer();
+    await handleStopRecording();
   }
 
   return (
@@ -84,8 +94,8 @@ export default function Question({ view, startTimer }: QuestionProps) {
           </Button>
           <RecordButton
             isRecording={isRecording}
-            handleStartRecording={handleStartRecording}
-            handleStopRecording={handleStopRecording}
+            handleStartRecording={handleStart}
+            handleStopRecording={handleStop}
             transcription={transcription}
           />
           <Button
