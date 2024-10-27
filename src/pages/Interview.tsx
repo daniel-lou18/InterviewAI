@@ -10,6 +10,7 @@ import { useLayout } from "@/hooks/useLayout";
 import { LayoutTable } from "@/types/components";
 import { ViewOptions } from "@/slices/layoutSlice";
 import { cn } from "@/lib/utils";
+import Timer from "@/components/ui/timer";
 
 export default function Interview() {
   const { view, updateView } = useLayout();
@@ -28,6 +29,7 @@ export default function Interview() {
       )}
     >
       <ViewSwitcher currentView={view} handleViewChange={updateView} />
+      <Timer />
       <PageTitle>Interview AI 🤖</PageTitle>
       <ProgressBar />
       <Question view={view} />
