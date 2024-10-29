@@ -2,7 +2,7 @@ import { Question } from "@/types/interview";
 
 export const questions: Question[] = [
   {
-    id: 1,
+    id: "1",
     question:
       "Citez au moins 3 raisons distinctes pour lesquelles un composant React pourrait être re-rendu.",
     correctAnswer: `
@@ -11,7 +11,7 @@ export const questions: Question[] = [
       3. Changement de contexte : Lorsque le contexte d'un composant React change, React peut déclencher un re-rendu pour mettre à jour l'interface utilisateur en conséquence. Cela peut se produire lorsque le contexte est modifié par un composant parent ou par une bibliothèque tierce.`,
   },
   {
-    id: 2,
+    id: "2",
     question:
       "Quels sont les concepts clés en React ? Pouvez-vous en nommer au moins 5 ?",
     correctAnswer: `
@@ -28,7 +28,7 @@ export const questions: Question[] = [
       11. Piloté par l’état : React va rendre/afficher l’UI en se basant sur l’état initial d’un composant. Puis, React va "réagir" à chaque changement d’état en mettant à jour l’UI grâce à un re-render. C’est de là que vient le nom “React”.  `,
   },
   {
-    id: 3,
+    id: "3",
     question:
       "Expliquez le concept d'état (state) en React. Quelles sont ses caractéristiques principales et son rôle dans le cycle de vie d'un composant ?",
     correctAnswer: `
@@ -55,7 +55,7 @@ export const questions: Question[] = [
          - Persistance des données entre les re-renders du composant`,
   },
   {
-    id: 4,
+    id: "4",
     question:
       "Expliquez la prop spéciale 'children' en React. Quel est son rôle et comment permet-elle de créer des composants réutilisables ?",
     correctAnswer: `
@@ -76,7 +76,7 @@ export const questions: Question[] = [
     `,
   },
   {
-    id: 5,
+    id: "5",
     question:
       "Quelle est la différence entre l'état local et l'état global en React ? Comment sont-ils définis et utilisés ?",
     correctAnswer: `
@@ -94,7 +94,7 @@ export const questions: Question[] = [
     `,
   },
   {
-    id: 6,
+    id: "6",
     question:
       "Quelle est la différence entre le State et les Props en React ? Comment sont-ils gérés et utilisés dans les composants ?",
     correctAnswer: `
@@ -115,7 +115,7 @@ export const questions: Question[] = [
     `,
   },
   {
-    id: 7,
+    id: "7",
     question:
       "Quelles sont les phases du cycle de vie d'un composant en React et comment fonctionnent-elles ?",
     correctAnswer: `
