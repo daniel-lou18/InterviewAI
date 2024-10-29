@@ -20,8 +20,8 @@ type InterviewState = {
   >;
   score: number;
   audio: Record<string, Audio>;
-  transcriptions: Record<number, Transcription>;
-  evaluations: Record<number, Evaluation>;
+  transcriptions: Record<string, Transcription>;
+  evaluations: Record<string, Evaluation>;
   direction: 1 | -1;
 };
 
@@ -64,7 +64,7 @@ const interviewSlice = createSlice({
       state.evaluations[questionId] = action.payload;
       state.statusById[questionId].evaluated = true;
     },
-    setCurrentQuestion(state, action: PayloadAction<string>) {
+    setCurrentQuestionId(state, action: PayloadAction<string>) {
       state.currentQuestionId = action.payload;
     },
     updateScore(state, action: PayloadAction<number>) {
@@ -89,6 +89,9 @@ const interviewSlice = createSlice({
     setDirection(state, action: PayloadAction<1 | -1>) {
       state.direction = action.payload;
     },
+    setAnswerTime(state, action: PayloadAction<number>) {
+      state.statusById[state.currentQuestionId].answerTime = action.payload;
+    },
   },
 });
 
@@ -97,9 +100,10 @@ export const {
   saveTranscription,
   saveEvaluation,
   updateScore,
-  setCurrentQuestion,
+  setCurrentQuestionId,
   setQuestionOrder,
   updateQuestions,
   setDirection,
+  setAnswerTime,
 } = interviewSlice.actions;
 export default interviewSlice.reducer;

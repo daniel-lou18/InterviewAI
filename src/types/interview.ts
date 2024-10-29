@@ -1,9 +1,9 @@
 export type Question = {
-  id: number;
+  id: string;
   question: string;
   correctAnswer: string;
 };
 
-export type Evaluation = { id: number; questionId: number; text: string };
+export type Evaluation = { id: string; questionId: string; text: string };
 
-export type Transcription = { id: number; questionId: number; text: string };
+export type Transcription = { id: string; questionId: string; text: string };

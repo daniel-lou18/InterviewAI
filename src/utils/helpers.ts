@@ -7,3 +7,11 @@ export function parseEvaluation(evaluation: string) {
   const score = splitOnScore[splitOnScore.length - 1].split(",")[0];
   return { score, motivation, feedback };
 }
+
+export function formatTime(time: number) {
+  const seconds = time % 60;
+  const minutes = Math.floor(time / 60);
+  return `${minutes < 10 ? "0" : ""}${minutes}:${
+    seconds < 10 ? "0" : ""
+  }${seconds}`;
+}

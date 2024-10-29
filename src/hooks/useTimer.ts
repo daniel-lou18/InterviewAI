@@ -1,18 +1,13 @@
 import { useCallback, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { tick } from "@/slices/timerSlice";
+import { tick, resetTime } from "@/slices/timerSlice";
+import { setAnswerTime } from "@/slices/interviewSlice";
 
 export function useTimer() {
   const { time } = useSelector((state: RootState) => state.timer);
   const dispatch = useDispatch();
   const timerIdRef = useRef<NodeJS.Timeout | null>(null);
-
-  const seconds = time % 60;
-  const minutes = Math.floor(time / 60);
-  const formattedTime = `${minutes < 10 ? "0" : ""}${minutes}:${
-    seconds < 10 ? "0" : ""
-  }${seconds}`;
 
   const startTimer = useCallback(() => {
     timerIdRef.current = setInterval(() => {
@@ -28,8 +23,14 @@ export function useTimer() {
 
   const stopTimer = useCallback(() => {
     if (timerIdRef.current === null) return;
-    clearInterval(timerIdRef.current);
-  }, []);
 
-  return { time: formattedTime, startTimer, stopTimer };
+    dispatch(setAnswerTime(time));
+    clearInterval(timerIdRef.current);
+  }, [dispatch, time]);
+
+  const resetTimer = useCallback(() => {
+    dispatch(resetTime());
+  }, [dispatch]);
+
+  return { time, startTimer, stopTimer, resetTimer };
 }

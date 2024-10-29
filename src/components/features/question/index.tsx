@@ -13,6 +13,7 @@ import { ViewOptions } from "@/slices/layoutSlice";
 import GridCardTransition from "@/components/ui/framer/GridCardTransition";
 
 type QuestionProps = {
+  resetTimer: () => void;
   startTimer: () => () => void;
   stopTimer: () => void;
 } & View;
@@ -25,6 +26,7 @@ const layoutClasses: LayoutTable<ViewOptions> = {
 
 export default function Question({
   view,
+  resetTimer,
   startTimer,
   stopTimer,
 }: QuestionProps) {
@@ -44,6 +46,7 @@ export default function Question({
   } = useRecord();
 
   function handleStart() {
+    resetTimer();
     startTimer();
     handleStartRecording();
   }

@@ -2,30 +2,26 @@ import { useCallback, useEffect, useState } from "react";
 import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
 import { useMutation } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveAudio, saveTranscription } from "@/slices/interviewSlice";
 import { Transcription } from "@/types/interview";
 import { useInterview } from "./useInterview";
-import { RootState } from "@/store/store";
 
 export function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  const { currentQuestion, currentQuestionId } = useInterview();
-  const currentAudio = useSelector(
-    (state: RootState) => state.interview.audio[currentQuestionId]
-  );
+  const { currentQuestionId, currentAudio } = useInterview();
   const dispatch = useDispatch();
 
   const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
     mutationKey: ["transcription"],
     onSuccess: (data) => {
-      if (data && "text" in data && currentQuestion) {
+      if (data && "text" in data && currentQuestionId) {
         const transcription: Transcription = {
-          id: Date.now(),
-          questionId: currentQuestion.id,
+          id: Date.now().toString(),
+          questionId: currentQuestionId,
           text: data.text,
         };
         dispatch(saveTranscription(transcription));
@@ -52,23 +48,23 @@ export function useRecord() {
 
   const handleStopRecording = useCallback(async () => {
     setIsRecording(false);
-    if (recorder) {
-      const audioBlob = await recorder.stopRecording();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      dispatch(saveAudio(audioUrl));
+    if (!recorder) return;
 
-      mutate(audioBlob);
+    const audioBlob = await recorder.stopRecording();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    dispatch(saveAudio(audioUrl));
 
-      const audio = new Audio(audioUrl);
-      setAudio(audio);
-    }
+    mutate(audioBlob);
+
+    const audio = new Audio();
+    setAudio(audio);
   }, [recorder, mutate, dispatch]);
 
   const handlePlayAudio = useCallback(() => {
-    if (audio) {
-      audio.src = currentAudio?.audioUrl;
-      audio.play();
-    }
+    if (!audio) return;
+
+    audio.src = currentAudio?.audioUrl;
+    audio.play();
   }, [audio, currentAudio?.audioUrl]);
 
   return {

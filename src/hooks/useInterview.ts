@@ -4,7 +4,7 @@ import { useQuestions } from "./useQuestions";
 import { useEffect } from "react";
 import {
   updateQuestions,
-  setCurrentQuestion,
+  setCurrentQuestionId,
   setQuestionOrder,
   setDirection,
 } from "@/slices/interviewSlice";
@@ -12,45 +12,54 @@ import {
 export function useInterview() {
   const interview = useSelector((state: RootState) => state.interview);
   const dispatch = useDispatch();
-  const { currentQuestionId, transcriptions, evaluations, direction } =
-    interview;
+  const {
+    currentQuestionId,
+    transcriptions,
+    evaluations,
+    direction,
+    audio,
+    statusById,
+  } = interview;
   const { questions, isLoading, error } = useQuestions();
   const currentQuestion = questions?.find(
-    (question) => question.id.toString() === currentQuestionId
+    (question) => question.id === currentQuestionId
   );
   const currentQuestionIndex =
     interview.questionOrder.indexOf(currentQuestionId);
-
+  const currentAudio = audio[currentQuestionId];
+  const currentTime = statusById[currentQuestionId]?.answered
+    ? statusById[currentQuestionId].answerTime
+    : 0;
   console.log(interview);
 
   useEffect(() => {
     if (questions?.length) {
-      dispatch(updateQuestions(questions.map((q) => q.id.toString())));
-      dispatch(setQuestionOrder(questions.map((q) => q.id.toString())));
+      dispatch(updateQuestions(questions.map((q) => q.id)));
+      dispatch(setQuestionOrder(questions.map((q) => q.id)));
       dispatch(
-        setCurrentQuestion(
-          currentQuestionId ? currentQuestionId : questions[0].id.toString()
+        setCurrentQuestionId(
+          currentQuestionId ? currentQuestionId : questions[0].id
         )
       );
     }
   }, [questions, dispatch, currentQuestionId]);
 
   const transcription = currentQuestion
-    ? transcriptions[currentQuestion.id]
+    ? transcriptions[currentQuestionId]
     : null;
-  const evaluation = currentQuestion ? evaluations[currentQuestion.id] : null;
+  const evaluation = currentQuestion ? evaluations[currentQuestionId] : null;
 
   function toNextQuestion() {
     dispatch(setDirection(1));
     dispatch(
-      setCurrentQuestion(interview.questionOrder[currentQuestionIndex + 1])
+      setCurrentQuestionId(interview.questionOrder[currentQuestionIndex + 1])
     );
   }
 
   function toPrevQuestion() {
     dispatch(setDirection(-1));
     dispatch(
-      setCurrentQuestion(interview.questionOrder[currentQuestionIndex - 1])
+      setCurrentQuestionId(interview.questionOrder[currentQuestionIndex - 1])
     );
   }
 
@@ -60,10 +69,12 @@ export function useInterview() {
     currentQuestion,
     currentQuestionId,
     currentQuestionIndex,
+    currentAudio,
     transcription,
     evaluation,
     toNextQuestion,
     toPrevQuestion,
     direction,
+    currentTime,
   };
 }
