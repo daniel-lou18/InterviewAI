@@ -21,6 +21,8 @@ export function useInterview() {
   const currentQuestionIndex =
     interview.questionOrder.indexOf(currentQuestionId);
 
+  console.log(interview);
+
   useEffect(() => {
     if (questions?.length) {
       dispatch(updateQuestions(questions.map((q) => q.id.toString())));

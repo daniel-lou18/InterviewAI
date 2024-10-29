@@ -1,14 +1,25 @@
 import { Evaluation, Transcription } from "@/types/interview";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type Audio = {
+  questionId: string;
+  audioUrl: string;
+};
+
 type InterviewState = {
   currentQuestionId: string;
   questionOrder: string[];
   statusById: Record<
     string,
-    { answered: boolean; transcribed: boolean; evaluated: boolean }
+    {
+      answered: boolean;
+      transcribed: boolean;
+      evaluated: boolean;
+      answerTime: number;
+    }
   >;
   score: number;
+  audio: Record<string, Audio>;
   transcriptions: Record<number, Transcription>;
   evaluations: Record<number, Evaluation>;
   direction: 1 | -1;
@@ -18,9 +29,15 @@ const initialState: InterviewState = {
   currentQuestionId: "",
   questionOrder: [],
   statusById: {
-    questionId: { answered: false, transcribed: false, evaluated: false },
+    questionId: {
+      answered: false,
+      transcribed: false,
+      evaluated: false,
+      answerTime: 0,
+    },
   },
   score: 0,
+  audio: {},
   transcriptions: {},
   evaluations: {},
   direction: 1,
@@ -30,11 +47,22 @@ const interviewSlice = createSlice({
   name: "interview",
   initialState,
   reducers: {
+    saveAudio(state, action: PayloadAction<string>) {
+      state.statusById[state.currentQuestionId].answered = true;
+      state.audio[state.currentQuestionId] = {
+        questionId: state.currentQuestionId,
+        audioUrl: action.payload,
+      };
+    },
     saveTranscription(state, action: PayloadAction<Transcription>) {
-      state.transcriptions[action.payload.questionId] = action.payload;
+      const { questionId } = action.payload;
+      state.transcriptions[questionId] = action.payload;
+      state.statusById[questionId].transcribed = true;
     },
     saveEvaluation(state, action: PayloadAction<Evaluation>) {
-      state.evaluations[action.payload.questionId] = action.payload;
+      const { questionId } = action.payload;
+      state.evaluations[questionId] = action.payload;
+      state.statusById[questionId].evaluated = true;
     },
     setCurrentQuestion(state, action: PayloadAction<string>) {
       state.currentQuestionId = action.payload;
@@ -65,6 +93,7 @@ const interviewSlice = createSlice({
 });
 
 export const {
+  saveAudio,
   saveTranscription,
   saveEvaluation,
   updateScore,

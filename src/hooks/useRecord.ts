@@ -2,18 +2,21 @@ import { useCallback, useEffect, useState } from "react";
 import AudioRecorder from "@/services/AudioRecordingService";
 import { getTextFromSpeech } from "@/services/SpeechToTextService";
 import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { saveTranscription } from "@/slices/interviewSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { saveAudio, saveTranscription } from "@/slices/interviewSlice";
 import { Transcription } from "@/types/interview";
 import { useInterview } from "./useInterview";
+import { RootState } from "@/store/store";
 
 export function useRecord() {
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState<AudioRecorder | null>(null);
-  const [audioUrl, setAudioUrl] = useState("");
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const { currentQuestion, currentQuestionId } = useInterview();
+  const currentAudio = useSelector(
+    (state: RootState) => state.interview.audio[currentQuestionId]
+  );
   const dispatch = useDispatch();
-  const { currentQuestion } = useInterview();
 
   const { mutate, reset } = useMutation({
     mutationFn: (audioBlob: Blob) => getTextFromSpeech(audioBlob),
@@ -52,25 +55,27 @@ export function useRecord() {
     if (recorder) {
       const audioBlob = await recorder.stopRecording();
       const audioUrl = URL.createObjectURL(audioBlob);
-      setAudioUrl(audioUrl);
-      const audio = new Audio(audioUrl);
-      setAudio(audio);
+      dispatch(saveAudio(audioUrl));
 
       mutate(audioBlob);
+
+      const audio = new Audio(audioUrl);
+      setAudio(audio);
     }
-  }, [recorder, mutate]);
+  }, [recorder, mutate, dispatch]);
 
   const handlePlayAudio = useCallback(() => {
     if (audio) {
+      audio.src = currentAudio?.audioUrl;
       audio.play();
     }
-  }, [audio]);
+  }, [audio, currentAudio?.audioUrl]);
 
   return {
     handleStartRecording,
     handleStopRecording,
     handlePlayAudio,
     isRecording,
-    audioUrl,
+    audioUrl: currentAudio?.audioUrl,
   };
 }
