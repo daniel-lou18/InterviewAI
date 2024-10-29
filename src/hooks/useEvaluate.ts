@@ -24,7 +24,7 @@ export function useEvaluate() {
   function handleSuccess(data: ApiSuccessResponse) {
     if (data && "text" in data && currentQuestion) {
       const evaluation: Evaluation = {
-        id: Date.now(),
+        id: Date.now().toString(),
         questionId: currentQuestion.id,
         text: data.text,
       };
