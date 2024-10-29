@@ -8,6 +8,7 @@ import {
   setQuestionOrder,
   setDirection,
 } from "@/slices/interviewSlice";
+import { useTimer } from "./useTimer";
 
 export function useInterview() {
   const interview = useSelector((state: RootState) => state.interview);
@@ -21,6 +22,7 @@ export function useInterview() {
     statusById,
   } = interview;
   const { questions, isLoading, error } = useQuestions();
+  const { time, isActive: isActiveTimer } = useTimer();
   const currentQuestion = questions?.find(
     (question) => question.id === currentQuestionId
   );
@@ -29,8 +31,9 @@ export function useInterview() {
   const currentAudio = audio[currentQuestionId];
   const currentTime = statusById[currentQuestionId]?.answered
     ? statusById[currentQuestionId].answerTime
+    : isActiveTimer
+    ? time
     : 0;
-  console.log(interview);
 
   useEffect(() => {
     if (questions?.length) {
